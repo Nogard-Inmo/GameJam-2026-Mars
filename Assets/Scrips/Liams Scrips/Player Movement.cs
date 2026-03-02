@@ -34,7 +34,7 @@ using UnityEngine;
 //		- have a world controller script with a "Can I move here?" method
 //		- connect this script to use that before making each move.
 
-public class DemoMoveGridCell : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [Header("Leave it blank to move this GameObject")]
     public Transform TransformToMove;
