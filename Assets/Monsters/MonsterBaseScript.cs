@@ -24,6 +24,7 @@ public class MonsterBaseScript : ScriptableObject
     [SerializeField] int spDefense;
     [SerializeField] int speed;
 
+    [SerializeField] public List<LearnableAbility> learnableAbilities;
 
     public string Name
     {
@@ -80,9 +81,30 @@ public class MonsterBaseScript : ScriptableObject
         get { return speed; }
     }
 
-
+    public List<LearnableAbility> LearnableAbilities
+    {
+        get { return learnableAbilities; }
+    }
 
 }
+
+
+[System.Serializable]
+
+public class LearnableAbility
+{
+    [SerializeField] AbilityBase abilityBase;
+    [SerializeField] int level;
+    public AbilityBase Base
+    {
+        get { return abilityBase; }
+    }
+    public int Level
+    {
+        get { return level; }
+    }
+}
+
 
 public enum MonsterType
 {
