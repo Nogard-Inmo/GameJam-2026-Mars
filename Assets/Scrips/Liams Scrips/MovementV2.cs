@@ -33,8 +33,14 @@ public class MovementV2 : MonoBehaviour
                 var targetPos = transform.position;
                 targetPos.x += input.x;
                 targetPos.y += input.y;
+                if (IsWalkable(targetPos))
+                {
 
-                StartCoroutine(Move(targetPos));
+                    StartCoroutine(Move(targetPos));
+
+                }
+
+                CheackForEncounters();
             }
         }
     }
@@ -52,4 +58,25 @@ public class MovementV2 : MonoBehaviour
         isMoving = false;
 
     }
+
+    private bool IsWalkable(Vector3 targetPos)
+    {
+        if (Physics2D.OverlapCircle(targetPos, 0.3f, solidObjectsLayer) != null)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    private void CheackForEncounters()
+    {
+        if (Physics2D.OverlapCircle(transform.position, 0.3f, grassLayer) != null)
+        {
+            if (Random.Range(1, 101) <= 10)
+            {
+                Debug.Log("Encountered a wild monster!");
+            }
+        }
+    }
+
 }
