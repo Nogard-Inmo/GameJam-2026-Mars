@@ -1677,6 +1677,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1587578427}
+  - component: {fileID: 1587578428}
   m_Layer: 0
   m_Name: BattleSystem
   m_TagString: Untagged
@@ -1701,6 +1702,20 @@ Transform:
   - {fileID: 617802690}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1587578428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587578426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65f5ca7519a54a947bbb090002def669, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerUnit: {fileID: 0}
+  playerHud: {fileID: 0}
 --- !u!1 &1590406171
 GameObject:
   m_ObjectHideFlags: 0

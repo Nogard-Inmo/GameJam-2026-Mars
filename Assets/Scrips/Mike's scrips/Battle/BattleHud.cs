@@ -9,15 +9,15 @@ public class BattleHud : MonoBehaviour
     [SerializeField] Text levelText;
     [SerializeField] HPBar hpBar;
 
-   /* public void SetData(Monster monster) 
+   public void SetData(Monster monster) 
     {
-        nameText.text = monster.Base.Name;
-        levelText.text = "Lvl " + monster.Level;
-        hpBar.SetHP((float)monster.HP / monster.MaxHP);
+        nameText.text = monster.Base.name;
+        levelText.text = "Lvl " + monster.level;
+        //hpBar.SetHP((float)monster.HP / monster.Base.MaxHp);
     }
      public void SetHP(float hpNormalize) 
     {
         hpBar.SetHP(hpNormalize);
     }
-   */
+   
 }

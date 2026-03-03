@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class BattleUnit : MonoBehaviour
 {
     [SerializeField] MonsterBaseScript _base;
     [SerializeField] int level;
@@ -12,12 +12,12 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     public void Setup() 
     { 
-       /* monster = new Monster(_base, level);
+       monster = new Monster(_base, level);
         if (isPlayerUnit)
             GetComponent<Image>().sprite = monster.Base.BackSprite;
         else
-            GetComponent<Image>().sprite = monster.Base.FrontSprite;    
-        */
+            GetComponent<Image>().sprite = monster.Base.frontSprite;    
+        
     }
 }
 
