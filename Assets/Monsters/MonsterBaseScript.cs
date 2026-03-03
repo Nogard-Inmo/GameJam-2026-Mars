@@ -23,6 +23,11 @@ public class MonsterBaseScript : ScriptableObject
     [SerializeField] int spAttack;
     [SerializeField] int spDefense;
     [SerializeField] int speed;
+    [SerializeField] int xpYield;
+
+    [SerializeField] int catchRate = 255;
+
+
 
     [SerializeField] public List<LearnableAbility> learnableAbilities;
 
