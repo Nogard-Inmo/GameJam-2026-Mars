@@ -3,12 +3,12 @@ using UnityEngine;
 public class Monster
 {
 
-    PokemonBase _base;
+    MonsterBaseScript _base; 
     int level;
 
 
 
-    public Monster(PokemonBase pBase, int plevel)
+    public Monster(MonsterBaseScript pBase, int plevel)
     {
         _base = pBase;
         level = plevel;
