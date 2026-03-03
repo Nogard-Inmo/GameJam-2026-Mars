@@ -2,13 +2,12 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class NewEmptyCSharpScript : MonoBehaviour
+public class HPBar : MonoBehaviour
 {
     [SerializeField] GameObject health;
 
-    private void Start()
+    public void SetHP(float hpNormalize) 
     {
-        health.transform.localScale = new Vector3(0.5f, 1f, 0.5f);
+        health.transform.localScale = new Vector3(hpNormalize, 1f);
     }
-
 }

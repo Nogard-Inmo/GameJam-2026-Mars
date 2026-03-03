@@ -3,7 +3,7 @@ using UnityEngine;
 public class Monster
 {
 
-    MonsterBaseScript _base; 
+    MonsterBaseScript _base; //https://youtu.be/zKRMkD28-xY?t=1065
     int level;
 
 
