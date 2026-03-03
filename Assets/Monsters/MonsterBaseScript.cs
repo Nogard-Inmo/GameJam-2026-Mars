@@ -11,8 +11,8 @@ public class MonsterBaseScript : ScriptableObject
     [TextArea]
     [SerializeField] string description;
 
-    public  Sprite frontSprite;
-    public  Sprite backSprite;
+    public Sprite frontSprite;
+    public Sprite backSprite;
 
     [SerializeField] MonsterType type1;
 
