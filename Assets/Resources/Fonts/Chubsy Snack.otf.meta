@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bc6f024e689c9af439c583e7dd19e8bf
+guid: ecfabea7495545844aa6fb713c8824ab
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - ArcadeClassic
+  - Chubsy Snack
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
