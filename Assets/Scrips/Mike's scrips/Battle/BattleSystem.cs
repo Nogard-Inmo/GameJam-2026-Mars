@@ -5,7 +5,9 @@ using System.Collections.Generic;
 public class BattleSystem : MonoBehaviour
 {
     [SerializeField] BattleUnit playerUnit;
+    [SerializeField] BattleUnit enemyUnit;
     [SerializeField] BattleHud playerHud;
+    [SerializeField] BattleHud enemyHud;
 
     private void Start()
     {
@@ -14,7 +16,9 @@ public class BattleSystem : MonoBehaviour
     void SetupBattle()
     {
         playerUnit.Setup();
+        enemyUnit.Setup();
         playerHud.SetData(playerUnit.monster);
+        enemyHud.SetData(enemyUnit.monster);
     }
 
 }
