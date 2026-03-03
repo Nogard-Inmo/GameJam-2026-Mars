@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 351ac08453eb872459985104113378d9
+guid: 59d7f56b09df5674698beb6a5fb32896
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 523975847592237264
-    second: "Grass tile v\xE4nster h\xF6rn uppe_0"
+      213: -5158784172086819362
+    second: Just grass tile_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "Grass tile v\xE4nster h\xF6rn uppe_0"
+      name: Just grass tile_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0d89e9ad149854700800000000000000
-      internalID: 523975847592237264
+      spriteID: ed58bddb0215868b0800000000000000
+      internalID: -5158784172086819362
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "Grass tile v\xE4nster h\xF6rn uppe_0": 523975847592237264
+      Just grass tile_0: -5158784172086819362
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
