@@ -6,6 +6,10 @@ public class MovementV2 : MonoBehaviour
 {
     public float speed;
 
+
+    public LayerMask solidObjectsLayer;
+    public LayerMask grassLayer;
+
     private bool isMoving;
     private Vector2 input;
 
