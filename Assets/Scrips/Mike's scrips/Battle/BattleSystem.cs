@@ -26,8 +26,9 @@ public class BattleSystem : MonoBehaviour
         playerHud.SetData(playerUnit.monster);
         enemyHud.SetData(enemyUnit.monster);
 
-        yield return dialogBox.TypeDialog($"An endangered {playerUnit.monster.Base.Name} has spawned.");
-        
+        dialogBox.SetAbilityNames(playerUnit.monster.Abilities);
+
+        yield return dialogBox.TypeDialog($"An endangered {enemyUnit.monster.Base.Name} has spawned.");
         yield return new WaitForSeconds(1f);
 
         PlayerAction();
@@ -40,6 +41,13 @@ public class BattleSystem : MonoBehaviour
         dialogBox.EnableActionSelector(true);
     }
 
+    void PlayerAbility() 
+    { 
+        state = BattleState.PlayerAbility;
+        dialogBox.EnableActionSelector(false);
+        dialogBox.EnableDialogText(false); 
+        dialogBox.EnableAbilitySelector(true);
+    }
     private void Update()
     {
         if (state == BattleState.PlayerAction)
@@ -54,18 +62,29 @@ public class BattleSystem : MonoBehaviour
         {
             if (currentAction < 1)
                 ++currentAction;
-            else
-                currentAction = 0;
+            
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            //select previous action
+            if (currentAction > 0)
+                --currentAction;
         }
-        else if (Input.GetKeyDown(KeyCode.Z))
+
+        dialogBox.UpdateActionSelection(currentAction);
+        
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            //confirm action
-            dialogBox.EnableActionSelector(false);
-            StartCoroutine(dialogBox.TypeDialog("You have chosen to fight") );
+            if (currentAction == 0)
+            {
+                // Fight
+                PlayerAbility();
+            }
+            else if (currentAction == 1)
+            {
+                // Run
+                dialogBox.EnableActionSelector(false);
+                
+            }
         }
     }
 }
