@@ -1,4 +1,7 @@
+using NUnit.Framework;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Monster
 {
@@ -6,12 +9,29 @@ public class Monster
     public MonsterBaseScript Base; //https://youtu.be/zKRMkD28-xY?t=1065
     public int level;
 
-
+    public int Hp { get; set; }
+    public List<Ability> Abilities { get; set; }
 
     public Monster(MonsterBaseScript pBase, int plevel)
     {
         Base = pBase;
         level = plevel;
+        Hp = MaxHp;
+
+        //Generate abilities
+        Abilities = new List<Ability>();
+            foreach (var learnableAbility in Base.learnableAbilities)
+            {
+                if (learnableAbility.Level <= level)
+                {
+                    Abilities.Add(new Ability(learnableAbility.Base));
+                }
+
+                if (Abilities.Count >= 4)
+                {
+                    break;
+                }
+            }
     }
 
     public int MaxHp
