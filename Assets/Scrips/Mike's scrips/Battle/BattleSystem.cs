@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Analytics;
 
 public enum BattleState { Start, PlayerAction, PlayerAbility, EnemyAbility  , Busy }
 
@@ -48,6 +49,13 @@ public class BattleSystem : MonoBehaviour
         dialogBox.EnableActionSelector(false);
         dialogBox.EnableDialogText(false); 
         dialogBox.EnableAbilitySelector(true);
+    }
+
+    IEnumerator PerformPlayerAbility()
+    {
+        var ability = playerUnit.monster.Abilities[currentAbility];
+        yield return dialogBox.TypeDialog($"{playerUnit.monster.Base.Name} used {ability.Base.Name}!");
+        
     }
     private void Update()
     {
@@ -129,6 +137,14 @@ public class BattleSystem : MonoBehaviour
             if (currentAbility > 1)
                 currentAbility -= 2;
         }
+
         dialogBox.UpdateAbilitySelection(currentAbility, playerUnit.monster.Abilities[currentAbility]);
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            dialogBox.EnableAbilitySelector(false);
+            dialogBox.EnableDialogText(true);
+            StartCoroutine(PerformPlayerAbility());
+        }
     }
 }
