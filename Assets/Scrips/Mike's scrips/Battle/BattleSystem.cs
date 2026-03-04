@@ -55,7 +55,10 @@ public class BattleSystem : MonoBehaviour
     {
         var ability = playerUnit.monster.Abilities[currentAbility];
         yield return dialogBox.TypeDialog($"{playerUnit.monster.Base.Name} used {ability.Base.Name}!");
-        
+
+        yield return new WaitForSeconds(1f);
+
+        bool isFainted = enemyUnit.monster.TakeDamage(ability.playerUnit.monster);
     }
     private void Update()
     {
