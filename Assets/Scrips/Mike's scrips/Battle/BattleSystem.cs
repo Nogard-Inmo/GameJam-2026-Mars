@@ -13,6 +13,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] BattleDialogBox dialogBox;
 
     BattleState state;
+    int currentAction;
 
     private void Start()
     {
@@ -39,4 +40,32 @@ public class BattleSystem : MonoBehaviour
         dialogBox.EnableActionSelector(true);
     }
 
+    private void Update()
+    {
+        if (state == BattleState.PlayerAction)
+        {
+            HandleActionSelector();
+        }
+    }   
+
+    void HandleActionSelector()
+    {
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (currentAction < 1)
+                ++currentAction;
+            else
+                currentAction = 0;
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            //select previous action
+        }
+        else if (Input.GetKeyDown(KeyCode.Z))
+        {
+            //confirm action
+            dialogBox.EnableActionSelector(false);
+            StartCoroutine(dialogBox.TypeDialog("You have chosen to fight") );
+        }
+    }
 }
