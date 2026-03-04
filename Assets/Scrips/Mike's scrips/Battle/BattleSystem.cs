@@ -1,9 +1,7 @@
-using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.Analytics;
+using UnityEngine;
 
-public enum BattleState { Start, PlayerAction, PlayerAbility, EnemyAbility  , Busy }
+public enum BattleState { Start, PlayerAction, PlayerAbility, EnemyAbility, Busy }
 
 public class BattleSystem : MonoBehaviour
 {
@@ -43,22 +41,42 @@ public class BattleSystem : MonoBehaviour
         dialogBox.EnableActionSelector(true);
     }
 
-    void PlayerAbility() 
-    { 
+    void PlayerAbility()
+    {
         state = BattleState.PlayerAbility;
         dialogBox.EnableActionSelector(false);
-        dialogBox.EnableDialogText(false); 
+        dialogBox.EnableDialogText(false);
         dialogBox.EnableAbilitySelector(true);
     }
 
     IEnumerator PerformPlayerAbility()
     {
+        state = BattleState.Busy;
         var ability = playerUnit.monster.Abilities[currentAbility];
         yield return dialogBox.TypeDialog($"{playerUnit.monster.Base.Name} used {ability.Base.Name}!");
 
         yield return new WaitForSeconds(1f);
 
-        //bool isFainted = enemyUnit.monster.TakeDamage(ability.playerUnit.monster);
+        bool isFainted = enemyUnit.monster.TakeDamage(ability, playerUnit.monster);
+
+        if (isFainted)
+        {
+            yield return dialogBox.TypeDialog($"{enemyUnit.monster.Base.Name} is unable to fight");
+
+        }
+        else
+        {
+            StartCoroutine(EnemyAbility());
+        }
+
+
+        IEnumerator EnemyAbility()
+        {
+            state = BattleState.EnemyAbility;
+
+            var ability = enemyUnit.monster.GetRandomAbility();
+        }
+
     }
     private void Update()
     {
@@ -70,7 +88,7 @@ public class BattleSystem : MonoBehaviour
         {
             HandleAbilitySelection();
         }
-    }   
+    }
 
     void HandleActionSelector()
     {
@@ -78,7 +96,7 @@ public class BattleSystem : MonoBehaviour
         {
             if (currentAction < 1)
                 ++currentAction;
-            
+
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
@@ -87,7 +105,7 @@ public class BattleSystem : MonoBehaviour
         }
 
         dialogBox.UpdateActionSelection(currentAction);
-        
+
         if (Input.GetKeyDown(KeyCode.Z))
         {
             if (currentAction == 0)
@@ -99,7 +117,7 @@ public class BattleSystem : MonoBehaviour
             {
                 // Run
                 dialogBox.EnableActionSelector(false);
-                
+
             }
         }
     }
