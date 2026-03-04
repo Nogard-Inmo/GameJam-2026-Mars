@@ -6,16 +6,19 @@ public class MovementV2 : MonoBehaviour
 {
     public float speed;
 
-
-    public LayerMask solidObjectsLayer;
-    public LayerMask grassLayer;
-
     private bool isMoving;
     private Vector2 input;
 
+    private CharacterAnimator animator;
+    private Character character;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
+    {
+        animator = GetComponent<CharacterAnimator>();
+        character = GetComponent<Character>();
+    }
+
+    public void HandleUpdate()
     {
         if (!isMoving)
         {
@@ -30,6 +33,9 @@ public class MovementV2 : MonoBehaviour
 
             if (input != Vector2.zero)
             {
+                animator.MoveX = input.x;
+                animator.MoveY = input.y;
+
                 var targetPos = transform.position;
                 targetPos.x += input.x;
                 targetPos.y += input.y;
@@ -40,9 +46,37 @@ public class MovementV2 : MonoBehaviour
 
                 }
 
-                CheackForEncounters();
+                OnMoveOver();
+            }
+
+            animator.IsMoving = isMoving;
+        }
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+       
+    }
+    private void OnMoveOver() 
+    {
+        var facingDir = new Vector3(animator.MoveX, animator.MoveY);
+        var interactPos = transform.position + facingDir;
+
+        var colliders = Physics2D.OverlapCircleAll(transform.position, 0.3f, GameLayers.i.TriggerableLayers);
+
+        foreach (var collider in colliders)
+        {
+            var triggerable = collider.GetComponent<IPlayerTriggerable>();
+            if (triggerable != null )
+            {
+                triggerable.OnPLayerTriggered(this);
+                break;
             }
         }
+
+
     }
 
     IEnumerator Move(Vector3 targetPos)
@@ -61,22 +95,11 @@ public class MovementV2 : MonoBehaviour
 
     private bool IsWalkable(Vector3 targetPos)
     {
-        if (Physics2D.OverlapCircle(targetPos, 0.3f, solidObjectsLayer) != null)
+        if (Physics2D.OverlapCircle(targetPos, 0.3f, GameLayers.i.SolidLayer) != null)
         {
             return false;
         }
         return true;
-    }
-
-    private void CheackForEncounters()
-    {
-        if (Physics2D.OverlapCircle(transform.position, 0.3f, grassLayer) != null)
-        {
-            if (Random.Range(1, 101) <= 10)
-            {
-                Debug.Log("Encountered a wild monster!");
-            }
-        }
     }
 
 }
