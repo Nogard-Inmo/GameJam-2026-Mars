@@ -57,7 +57,7 @@ public class BattleSystem : MonoBehaviour
         }
         else if (state == BattleState.PlayerAbility)
         {
-            HandleAbilitySelector();
+            HandleAbilitySelection();
         }
     }   
 
