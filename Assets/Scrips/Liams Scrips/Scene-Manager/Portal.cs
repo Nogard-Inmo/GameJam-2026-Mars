@@ -1,16 +1,19 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Portal : MonoBehaviour
+public class Portal : MonoBehaviour, IPlayerTriggerable
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    //[SerializeField] int sceneToLoad;
+    public void OnPLayerTriggered(MovementV2 player)
     {
-        
+        SwitchScene();
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator SwitchScene()
     {
-        
+      yield return SceneManager.LoadSceneAsync("Liam 2");
+
     }
 }
