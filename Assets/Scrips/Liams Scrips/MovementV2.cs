@@ -9,9 +9,16 @@ public class MovementV2 : MonoBehaviour
     private bool isMoving;
     private Vector2 input;
 
+    private CharacterAnimator animator;
+    private Character character;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
+    {
+        animator = GetComponent<CharacterAnimator>();
+        character = GetComponent<Character>();
+    }
+
+    public void HandleUpdate()
     {
         if (!isMoving)
         {
@@ -26,6 +33,9 @@ public class MovementV2 : MonoBehaviour
 
             if (input != Vector2.zero)
             {
+                animator.MoveX = input.x;
+                animator.MoveY = input.y;
+
                 var targetPos = transform.position;
                 targetPos.x += input.x;
                 targetPos.y += input.y;
@@ -38,10 +48,22 @@ public class MovementV2 : MonoBehaviour
 
                 OnMoveOver();
             }
+
+            animator.IsMoving = isMoving;
         }
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+       
     }
     private void OnMoveOver() 
     {
+        var facingDir = new Vector3(animator.MoveX, animator.MoveY);
+        var interactPos = transform.position + facingDir;
+
         var colliders = Physics2D.OverlapCircleAll(transform.position, 0.3f, GameLayers.i.TriggerableLayers);
 
         foreach (var collider in colliders)

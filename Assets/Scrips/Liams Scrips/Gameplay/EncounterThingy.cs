@@ -6,7 +6,8 @@ public class EncounterThingy : MonoBehaviour, IPlayerTriggerable
     {
         if (UnityEngine.Random.Range(1, 101) <= 10)
         {
-            Debug.Log("Encountered a wild pokemon!");
+            character.Animator.IsMoving= false;
+            GameController.Instance.StartBattle();
         }
     }
 }

@@ -2,15 +2,25 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    BattleSystem battleSystem;
+    MovementV2 movementV2;
+
+    void StartBattle()
     {
-        
+        /*
+       state = GameState.Battle;
+        battleSystem.gameObject.SetActive(true);
+        worldCamera.gameObject.SetActive(false);
+
+        var playerParty = movementV2.gameObject.GetComponent<MonsterParty>();
+        var wildMonster = FindObjectOfType<MapArea>().GetComponent<MapArea>().GetRandomWildMonster();
+
+        var wildMonsterCopy = new Monster(wildMonster.Base, wildMonster.Level);
+
+        battleSystem.StartBattle(playerParty, wildMonsterCopy);
+        */
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
