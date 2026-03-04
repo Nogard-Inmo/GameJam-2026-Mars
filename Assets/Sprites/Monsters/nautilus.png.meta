@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 530647853d9e31543a627e2dad0afc5d
+guid: eee13845bb2bc5047a871f0c86fea619
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2598829404616528261
-    second: "Grass tile med v\xE4xt_0"
+      213: 4245814718526414900
+    second: nautilus_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,12 +113,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "Grass tile med v\xE4xt_0"
+      name: nautilus_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1
         y: 0
-        width: 32
+        width: 55
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 58112060395e01420800000000000000
-      internalID: 2598829404616528261
+      spriteID: 43064efbdf92cea30800000000000000
+      internalID: 4245814718526414900
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "Grass tile med v\xE4xt_0": 2598829404616528261
+      nautilus_0: 4245814718526414900
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
