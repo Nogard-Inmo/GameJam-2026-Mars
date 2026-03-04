@@ -1,5 +1,7 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.Analytics;
 
 public enum BattleState { Start, PlayerAction, PlayerAbility, EnemyAbility, Busy }
 
@@ -58,25 +60,40 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         bool isFainted = enemyUnit.monster.TakeDamage(ability, playerUnit.monster);
+        enemyHud.UpdateHP();
 
         if (isFainted)
         {
             yield return dialogBox.TypeDialog($"{enemyUnit.monster.Base.Name} is unable to fight");
-
         }
         else
         {
             StartCoroutine(EnemyAbility());
         }
 
+        
+    }
 
-        IEnumerator EnemyAbility()
+    IEnumerator EnemyAbility()
+    {
+        state = BattleState.EnemyAbility;
+        var ability = enemyUnit.monster.GetRandomAbility();
+
+        yield return dialogBox.TypeDialog($"{enemyUnit.monster.Base.Name} used {ability.Base.Name}!");
+
+        yield return new WaitForSeconds(1f);
+
+        bool isFainted = playerUnit.monster.TakeDamage(ability, playerUnit.monster);
+        playerHud.UpdateHP();
+
+        if (isFainted)
         {
-            state = BattleState.EnemyAbility;
-
-            var ability = enemyUnit.monster.GetRandomAbility();
+            yield return dialogBox.TypeDialog($"{playerUnit.monster.Base.Name} is unable to fight");
         }
-
+        else
+        {
+            PlayerAction();
+        }
     }
     private void Update()
     {
