@@ -12,15 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8510819aa6e79244827159f3ee1ee62, type: 3}
   m_Name: Shelllo
   m_EditorClassIdentifier: 
-  name: 
+  name: Shello
   description: 
-  frontSprite: {fileID: 0}
-  backSprite: {fileID: 0}
-  type1: 0
-  maxHp: 0
-  attack: 0
-  defense: 0
-  spAttack: 0
-  spDefense: 0
-  speed: 0
-  learnableAbilities: []
+  frontSprite: {fileID: 828265434898343749, guid: adc8e683f49047442a2f3427a6457a2e, type: 3}
+  backSprite: {fileID: 8581734491280242025, guid: 3bdf9e05dd1422f409f77c6666888e49, type: 3}
+  type1: 3
+  maxHp: 45
+  attack: 73
+  defense: 100
+  spAttack: 74
+  spDefense: 65
+  speed: 40
+  xpYield: 0
+  catchRate: 255
+  learnableAbilities:
+  - abilityBase: {fileID: 11400000, guid: 5ed7465fe5e4ce34fbe94c09d94e0aa2, type: 2}
+    level: 1
