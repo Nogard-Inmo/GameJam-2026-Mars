@@ -58,7 +58,7 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        bool isFainted = enemyUnit.monster.TakeDamage(ability.playerUnit.monster);
+        //bool isFainted = enemyUnit.monster.TakeDamage(ability.playerUnit.monster);
     }
     private void Update()
     {
