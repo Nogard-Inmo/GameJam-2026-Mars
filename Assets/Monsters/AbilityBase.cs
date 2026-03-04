@@ -2,6 +2,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+
+
+//Creates a scriptable object that can be used as a reference for the abilities of the monsters-Liam
 [CreateAssetMenu(fileName = "Ability", menuName = "Monster/Create new ability")]
 public class AbilityBase : ScriptableObject
 {
