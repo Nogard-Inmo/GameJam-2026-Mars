@@ -64,4 +64,21 @@ public class Monster
        get { return Mathf.FloorToInt((Base.Speed * level) / 100f) + 5; }
     }
 
+    public bool TakeDamage(Ability ability, Monster attacker)
+    {
+        float modifiers = Random.Range(0.85f, 1f);
+        float a = (2 * attacker.level + 10) / 250f;
+        float ab = a * ability.Base.Power * ((float)attacker.Attack / Defense) + 2;
+        int damage = Mathf.FloorToInt(ab * modifiers);
+
+        Hp -= damage;
+        if (Hp < 0)
+        {
+            Hp = 0;
+            return true;
+        }
+       
+        return false;
+        
+    }
 }
