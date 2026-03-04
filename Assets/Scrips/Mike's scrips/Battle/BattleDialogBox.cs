@@ -6,14 +6,15 @@ using UnityEngine.UI;
 public class BattleDialogBox : MonoBehaviour
 {
     [SerializeField] int lettersPerSecond;
+    [SerializeField] Color highlightedColor;
 
     [SerializeField] Text dialogText;
     [SerializeField] GameObject actionSelector; 
-    [SerializeField] GameObject abilitysSelector;
-    [SerializeField] GameObject abilitysDetails;
+    [SerializeField] GameObject abilitySelector;
+    [SerializeField] GameObject abilityDetails;
 
     [SerializeField] List<Text> actionTexts;
-    [SerializeField] List<Text> abilitysTexts;
+    [SerializeField] List<Text> abilityTexts;
 
     [SerializeField] Text UpText;
     [SerializeField] Text typeTexts;
@@ -47,7 +48,44 @@ public class BattleDialogBox : MonoBehaviour
 
     public void EnableAbilitySelector(bool enabled)
     {
-        abilitysSelector.SetActive(enabled);
-        abilitysDetails.SetActive(enabled);
+        abilitySelector.SetActive(enabled);
+        abilityDetails.SetActive(enabled);
+    }
+
+    public void UpdateActionSelection(int selectedAction)
+    {
+        for (int i=0; i <actionTexts.Count; ++i)
+        {
+            if (i == selectedAction)
+                actionTexts[i].color = highlightedColor;
+            else
+                actionTexts[i].color = Color.black;
+        }
+                
+    }
+
+    public void UpdateAbilitySelection(int selectedAbility, Ability ability)
+    {
+        for (int i=0; i <abilityTexts.Count; ++i)
+        {
+            if (i == selectedAbility)
+                abilityTexts[i].color = highlightedColor;
+            else
+                abilityTexts[i].color = Color.black;
+        }
+
+        UpText.text = $"UP: {ability.up}/{ability.Base.UP}";
+        typeTexts.text = ability.Base.Type.ToString();
+    }
+
+    public void SetAbilityNames(List<Ability> ability)
+    {
+        for (int i=0; i< abilityTexts.Count; ++i)
+        {
+            if (i < ability.Count)
+                abilityTexts[i].text = ability[i].Base.Name;
+            else
+                abilityTexts[i].text = "-";
+        }
     }
 }

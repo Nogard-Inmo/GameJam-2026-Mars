@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: adc8e683f49047442a2f3427a6457a2e
+guid: bf29b5bdd34f6d34dad317c9168bf943
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 828265434898343749
-    second: shelly1_0
+      213: -1152993908599229562
+    second: battle normal_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: shelly1_0
+      name: battle normal_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 31
+        width: 240
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 547a9d256079e7b00800000000000000
-      internalID: 828265434898343749
+      spriteID: 683f0c1262ebfffe0800000000000000
+      internalID: -1152993908599229562
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      shelly1_0: 828265434898343749
+      battle normal_0: -1152993908599229562
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

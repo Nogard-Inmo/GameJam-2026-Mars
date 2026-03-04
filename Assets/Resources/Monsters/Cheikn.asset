@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8510819aa6e79244827159f3ee1ee62, type: 3}
-  m_Name: Nauti
+  m_Name: Cheikn
   m_EditorClassIdentifier: 
-  name: Nauti
+  name: 
   description: 
-  frontSprite: {fileID: -6159317351501391959, guid: c6300cf1998b08b4080868c4ef4bd43c, type: 3}
-  backSprite: {fileID: -6159317351501391959, guid: c6300cf1998b08b4080868c4ef4bd43c, type: 3}
-  type1: 3
+  frontSprite: {fileID: 0}
+  backSprite: {fileID: 0}
+  type1: 0
   maxHp: 0
   attack: 0
   defense: 0
@@ -25,6 +25,4 @@ MonoBehaviour:
   speed: 0
   xpYield: 0
   catchRate: 255
-  learnableAbilities:
-  - abilityBase: {fileID: 11400000, guid: 5ed7465fe5e4ce34fbe94c09d94e0aa2, type: 2}
-    level: 1
+  learnableAbilities: []
