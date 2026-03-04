@@ -6,10 +6,6 @@ public class MovementV2 : MonoBehaviour
 {
     public float speed;
 
-
-    public LayerMask solidObjectsLayer;
-    public LayerMask grassLayer;
-
     private bool isMoving;
     private Vector2 input;
 
@@ -40,9 +36,25 @@ public class MovementV2 : MonoBehaviour
 
                 }
 
-                CheackForEncounters();
+                OnMoveOver();
             }
         }
+    }
+    private void OnMoveOver() 
+    {
+        var colliders = Physics2D.OverlapCircleAll(transform.position, 0.3f, GameLayers.i.TriggerableLayers);
+
+        foreach (var collider in colliders)
+        {
+            var triggerable = collider.GetComponent<IPlayerTriggerable>();
+            if (triggerable != null )
+            {
+                triggerable.OnPLayerTriggered(this);
+                break;
+            }
+        }
+
+
     }
 
     IEnumerator Move(Vector3 targetPos)
@@ -61,22 +73,11 @@ public class MovementV2 : MonoBehaviour
 
     private bool IsWalkable(Vector3 targetPos)
     {
-        if (Physics2D.OverlapCircle(targetPos, 0.3f, solidObjectsLayer) != null)
+        if (Physics2D.OverlapCircle(targetPos, 0.3f, GameLayers.i.SolidLayer) != null)
         {
             return false;
         }
         return true;
-    }
-
-    private void CheackForEncounters()
-    {
-        if (Physics2D.OverlapCircle(transform.position, 0.3f, grassLayer) != null)
-        {
-            if (Random.Range(1, 101) <= 10)
-            {
-                Debug.Log("Encountered a wild monster!");
-            }
-        }
     }
 
 }
