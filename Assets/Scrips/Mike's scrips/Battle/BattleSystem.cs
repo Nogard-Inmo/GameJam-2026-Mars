@@ -14,6 +14,7 @@ public class BattleSystem : MonoBehaviour
 
     BattleState state;
     int currentAction;
+    int currentAbility;
 
     private void Start()
     {
@@ -54,6 +55,10 @@ public class BattleSystem : MonoBehaviour
         {
             HandleActionSelector();
         }
+        else if (state == BattleState.PlayerAbility)
+        {
+            HandleAbilitySelector();
+        }
     }   
 
     void HandleActionSelector()
@@ -86,5 +91,44 @@ public class BattleSystem : MonoBehaviour
                 
             }
         }
+    }
+    void HandleAbilitySelector()
+    {
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (currentAction < playerUnit.monster.Abilities.Count - 1)
+                ++currentAction;
+
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (currentAction > 0)
+                --currentAction;
+        }
+    }
+
+    void HandleAbilitySelection()
+    {
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if (currentAbility < playerUnit.monster.Abilities.Count - 1)
+                ++currentAbility;
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (currentAbility > 0)
+                --currentAbility;
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (currentAbility < playerUnit.monster.Abilities.Count - 2)
+                currentAbility += 2;
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (currentAbility > 1)
+                currentAbility -= 2;
+        }
+        dialogBox.UpdateAbilitySelection(currentAbility, playerUnit.monster.Abilities[currentAbility]);
     }
 }

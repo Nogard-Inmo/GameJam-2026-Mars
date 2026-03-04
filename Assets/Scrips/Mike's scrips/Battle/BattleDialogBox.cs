@@ -64,6 +64,20 @@ public class BattleDialogBox : MonoBehaviour
                 
     }
 
+    public void UpdateAbilitySelection(int selectedAbility, Ability ability)
+    {
+        for (int i=0; i <abilityTexts.Count; ++i)
+        {
+            if (i == selectedAbility)
+                abilityTexts[i].color = highlightedColor;
+            else
+                abilityTexts[i].color = Color.black;
+        }
+
+        UpText.text = $"UP: {ability.up}/{ability.Base.UP}";
+        typeTexts.text = ability.Base.Type.ToString();
+    }
+
     public void SetAbilityNames(List<Ability> ability)
     {
         for (int i=0; i< abilityTexts.Count; ++i)

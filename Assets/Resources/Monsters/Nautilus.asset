@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8510819aa6e79244827159f3ee1ee62, type: 3}
   m_Name: Nautilus
   m_EditorClassIdentifier: 
-  name: 
+  name: Nautilus
   description: 
-  frontSprite: {fileID: 0}
-  backSprite: {fileID: 0}
+  frontSprite: {fileID: 828265434898343749, guid: adc8e683f49047442a2f3427a6457a2e, type: 3}
+  backSprite: {fileID: 7482667652216324306, guid: 0322d5d93b730d044a97970da1986e1a, type: 3}
   type1: 0
   maxHp: 0
   attack: 0
@@ -23,3 +23,6 @@ MonoBehaviour:
   spAttack: 0
   spDefense: 0
   speed: 0
+  xpYield: 0
+  catchRate: 255
+  learnableAbilities: []
