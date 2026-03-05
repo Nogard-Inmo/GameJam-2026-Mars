@@ -100,7 +100,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
        
         yield return RunAbility(enemyUnit, playerUnit, ability);
 
-        if state == BattleState.PerformAbility 
+        if (state == BattleState.PerformAbility)
             ActionSelection();
         
     }
