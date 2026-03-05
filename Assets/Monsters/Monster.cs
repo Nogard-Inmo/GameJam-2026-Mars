@@ -6,8 +6,8 @@ using System.Collections.Generic;
 public class Monster
 {
 
-    public MonsterBaseScript Base; //https://youtu.be/zKRMkD28-xY?t=1065
-    public int level;
+    public MonsterBaseScript Base { get; set; }
+    public int level { get; set; }
 
     public int Hp { get; set; }
     public List<Ability> Abilities { get; set; }
