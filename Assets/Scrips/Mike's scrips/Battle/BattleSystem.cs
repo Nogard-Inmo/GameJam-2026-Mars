@@ -64,8 +64,8 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
     {
         
         state = BattleState.PartyScreen;
-        partyScreen.gameObject.SetActive(true);
-        partyScreen.SetPartyData(playerParty.Monsters);
+        //partyScreen.gameObject.SetActive(true);
+        //partyScreen.SetPartyData(playerParty.Monsters);
         
     }
 
@@ -270,7 +270,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         {
             dialogBox.EnableAbilitySelector(false);
             dialogBox.EnableDialogText(true);
-            StartCoroutine(PlayerAbility());
+            StartCoroutine(RunTurns(BattleAction.Ability));
         }
     }
 
@@ -287,29 +287,29 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
 
         currentMember = Mathf.Clamp(currentMember, 0, playerParty.Monsters.Count - 1);
 
-        partyScreen.UpdateMemberSelection(currentMember);
+        //partyScreen.UpdateMemberSelection(currentMember);
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
             var selectedMonster = playerParty.Monsters[currentMember];
             if (selectedMonster.Hp <= 0)
             {
-                partyScreen.SetMessageText("You can't send out a fainted monster");
+                //partyScreen.SetMessageText("You can't send out a fainted monster");
                 return;
             }
             if (selectedMonster == playerUnit.monster)
             {
-                partyScreen.SetMessageText("You can't switch with the same monster");
+                //partyScreen.SetMessageText("You can't switch with the same monster");
                 return;
             }
 
-            partyScreen.gameObject.SetActive(false);
+           // partyScreen.gameObject.SetActive(false);
             state = BattleState.Busy;
             StartCoroutine(SwitchMonster(selectedMonster));
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
-            partyScreen.gameObject.SetActive(false);
+            //partyScreen.gameObject.SetActive(false);
             ActionSelection();
         }
     }
