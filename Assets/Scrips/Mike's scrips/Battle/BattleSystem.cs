@@ -13,7 +13,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] BattleUnit enemyUnit;
 
     [SerializeField] BattleDialogBox dialogBox;
-    //[SerializeField] PartyScreen partyScreen;
+    [SerializeField] PartyScreen partyScreen;
 
     public event Action<bool> OnBattleOver;
 
@@ -39,7 +39,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         playerUnit.Setup(playerParty.GetHealthyMonster());
         enemyUnit.Setup(wildMonster);
 
-        //partyScreen.Init();
+        partyScreen.Init();
 
         dialogBox.SetAbilityNames(playerUnit.monster.Abilities);
 
@@ -64,11 +64,11 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
 
     void OpenPartyScreen()
     {
-        
+        print("Party screen");
         state = BattleState.PartyScreen;
-        //partyScreen.gameObject.SetActive(true);
-        //partyScreen.SetPartyData(playerParty.Monsters);
-        
+        partyScreen.SetPartyData(playerParty.Monsters);
+        partyScreen.gameObject.SetActive(true);
+
     }
 
     void AbillitySelection()
@@ -222,24 +222,15 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
     void HandleActionSelection()
     {
         if(Input.GetKeyDown(KeyCode.RightArrow))
-        {
-                ++currentAction;
-        }
+            ++currentAction;
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-                --currentAction;
-        }
+            --currentAction;
         else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-                currentAction += 2;
-
-        }
+            currentAction += 2;
         else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-              currentAction -=2 ;
-        }
-
-        currentAction = Mathf.Clamp(currentAction, 0, 3);
+            currentAction -=2 ;
+        
+        currentAbility = Mathf.Clamp(currentAbility, 0, playerUnit.monster.Abilities.Count - 1);
 
         dialogBox.UpdateActionSelection(currentAction);
 
@@ -257,7 +248,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
 
             else if (currentAction == 2)
             {
-                // Monster
+                // Monsters
                 prevState = state;
                 OpenPartyScreen();
             }
@@ -268,7 +259,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         }
     }
     void HandleAbilitySelector()
-    {
+    {   
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (currentAction < playerUnit.monster.Abilities.Count - 1)
@@ -285,25 +276,15 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
     void HandleAbilitySelection()
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            if (currentAbility < playerUnit.monster.Abilities.Count - 1)
-                ++currentAbility;
-        }
+            ++currentAbility;
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            if (currentAbility > 0)
-                --currentAbility;
-        }
+            --currentAbility;
         else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (currentAbility < playerUnit.monster.Abilities.Count - 2)
-                currentAbility += 2;
-        }
+            currentAbility += 2;
         else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if (currentAbility > 1)
-                currentAbility -= 2;
-        }
+            currentAbility -= 2;
+
+        currentAction = Mathf.Clamp(currentAbility, 0, 3);
 
         dialogBox.UpdateAbilitySelection(currentAbility, playerUnit.monster.Abilities[currentAbility]);
 
@@ -312,6 +293,12 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
             dialogBox.EnableAbilitySelector(false);
             dialogBox.EnableDialogText(true);
             StartCoroutine(RunTurns(BattleAction.Ability));
+        }
+        else if (Input.GetKeyDown(KeyCode.X))
+        {
+            dialogBox.EnableAbilitySelector(false);
+            dialogBox.EnableDialogText(true);
+            ActionSelection();
         }
     }
 

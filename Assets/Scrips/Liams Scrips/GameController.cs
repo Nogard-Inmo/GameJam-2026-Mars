@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
     {
 
        movementV2.OnEncountered += StartBattle;
-      // battleSystem.OnBattleOver += EndBattle;
+      //battleSystem.OnBattleOver += EndBattle;
 
     }
 

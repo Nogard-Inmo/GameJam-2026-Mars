@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
+
 public class BattleUnit : MonoBehaviour
 {
     [SerializeField] bool isPlayerUnit;
@@ -22,20 +23,32 @@ public class BattleUnit : MonoBehaviour
     {
         image = GetComponent<Image>();
         originalPos = image.transform.localPosition;
-        originalColor = image.color;
     }
 
     public void Setup(Monster monster) 
     {   
         monster = monster;
         if (isPlayerUnit)
-            GetComponent<Image>().sprite = monster.Base.BackSprite;
+            image.sprite = monster.Base.BackSprite;
         else
-            GetComponent<Image>().sprite = monster.Base.frontSprite;    
+            image.sprite = monster.Base.frontSprite;    
         
         hud.SetData(monster);
 
         image.color = originalColor;
+    }
+
+    public void PlayEnterAnimation()
+    {
+        if (isPlayerUnit)
+        {
+            image.transform.localPosition = new Vector3(-500f, originalPos.y);
+        }
+        else
+        {
+            image.transform.localPosition = new Vector3(500f, originalPos.y);
+        }
+     
     }
 }
 
