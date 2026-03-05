@@ -92,17 +92,25 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
             bool playerGoesFirst = playerUnit.monster.Speed >= enemyUnit.monster.Speed;
 
             var firstUnit = (playerGoesFirst) ? playerUnit : enemyUnit;
-            var secondUnit = (playerGoesFirst) ? enemyUnit : firstUnit;
+            var secondUnit = (playerGoesFirst) ? enemyUnit : playerUnit;
+
+            var secondMonster = secondUnit.monster;
 
             //First turn
             yield return RunAbility(firstUnit, secondUnit, firstUnit.monster.CurrentAbility);
-            //yield return RunAfterTurn(firstUnit);
+            yield return RunAfterTurn(firstUnit);
             if (state == BattleState.BattleOver) yield break;
 
-            //Second turn
-            yield return RunAbility(secondUnit, firstUnit, secondUnit.monster.CurrentAbility);
-            //yield return RunAfterTurn(secondUnit);
-            if (state == BattleState.BattleOver) yield break;
+            if (secondMonster.Hp > 0)
+            {
+                //Second turn
+                yield return RunAbility(secondUnit, firstUnit, secondUnit.monster.CurrentAbility);
+                yield return RunAfterTurn(secondUnit);
+                if (state == BattleState.BattleOver) yield break;
+            }
+
+            if(state != BattleState.BattleOver)
+                ActionSelection();
         }
         else
         {
@@ -143,6 +151,24 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
 
 
                 CheckForBattleOver(targetUnit);
+            }
+        }
+
+        IEnumerator RunAfterTurn(BattleUnit sourceUnit)
+        {
+            if(state == BattleState.BattleOver)
+                yield break;
+            yield return new WaitUntil(()=> state == BattleState.RunningTurn);
+
+
+           //statuses like burn or poison will hurt the pokemon after the turn
+           // sourceUnit.monster.OnAfterTurn();
+           // yield return ShowStatusChanges(sourceUnit.monster);
+            yield return sourceUnit.Hud.UpdateHP();
+            if (sourceUnit.monster.Hp <= 0)
+            {
+                yield return dialogBox.TypeDialog($"{sourceUnit.monster.Base.Name} got disintergrated!");
+                CheckForBattleOver(sourceUnit);
             }
         }
 
@@ -330,10 +356,6 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
                 state = BattleState.Busy;
                 StartCoroutine(SwitchMonster(selectedMember));
             }
-
-                StartCoroutine(SwitchMonster(selectedMember));
-
-
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
