@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] MovementV2 movementV2;
     [SerializeField] BattleSystem battleSystem;
+    [SerializeField] Camera worldCamera;
 
     GameState state;
 
@@ -24,10 +25,16 @@ public class GameController : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        
+    }
+
 
     void StartBattle()
     {
        /* 
+        
        state = GameState.Battle;
         battleSystem.gameObject.SetActive(true);
         worldCamera.gameObject.SetActive(false);

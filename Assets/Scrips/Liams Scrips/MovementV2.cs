@@ -12,6 +12,7 @@ public class MovementV2 : MonoBehaviour
     private CharacterAnimator animator;
     private Character character;
 
+
     private void Awake()
     {
         animator = GetComponent<CharacterAnimator>();
