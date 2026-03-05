@@ -48,6 +48,8 @@ public class Character : MonoBehaviour
         animator.IsMoving = IsMoving;
     }
 
+
+
     private bool IsWalkable(Vector3 targetPos)
     {
         if (Physics2D.OverlapCircle(targetPos, 0.3f, GameLayers.i.SolidLayer | GameLayers.i.InteractableLayer) != null)

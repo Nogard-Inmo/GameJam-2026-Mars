@@ -11,6 +11,7 @@ public class MovementV2 : MonoBehaviour
 
     private Character character;
 
+    public LayerMask grassLayer;
 
     private void Awake()
     {
@@ -60,6 +61,7 @@ public class MovementV2 : MonoBehaviour
 
     private void CheckForEncounters()
     {
+        if (Physics2D.OverlapCircle(transform.position, 0.2f, grassLayer) != null)
         if (UnityEngine.Random.Range(1, 101) <= 10)
         {
             character.Animator.IsMoving = false;
