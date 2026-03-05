@@ -61,24 +61,44 @@ public class Monster
    
     public int Speed
     {
-       get { return Mathf.FloorToInt((Base.Speed * level) / 100f) + 5; }
+       get { return Mathf.FloorToInt((Base.Speed * level) / 100f) + 5; }    
     }
 
-    public bool TakeDamage(Ability ability, Monster attacker)
+    public DamageDetails TakeDamage(Ability ability, Monster attacker)
     {
-        float modifiers = Random.Range(0.85f, 1f);
+        float critical = 1f;
+        if (Random.value * 100 <= 6.9f)
+            critical = 2f;
+
+
+        float type = TypeChart.GetEffectiveness(ability.Base.Type, this.Base.Type1) * TypeChart.GetEffectiveness(ability.Base.Type, this.Base.Type1);
+             
+        var damageDetails = new DamageDetails()
+        {
+            Type = type,
+            Critical = critical,
+            Fainted = false
+            
+        };
+
+
+
+        float attack = (ability.Base.IsSpecial)? attacker.SpAttack : attacker.Attack;
+        float defense = (ability.Base.IsSpecial)? SpDefense : Defense;
+
+        float modifiers = Random.Range(0.85f, 1f) * type * critical;
         float a = (2 * attacker.level + 10) / 250f;
-        float d = a * ability.Base.Power * ((float)attacker.Attack / Defense) + 2;
+        float d = a * ability.Base.Power * ((float)attack / defense) + 2;
         int damage = Mathf.FloorToInt(d * modifiers);
 
         Hp -= damage;
         if (Hp <= 0)
         {
             Hp = 0;
-            return true;
+            damageDetails.Fainted = true;
         }
        
-        return false;
+        return damageDetails;
         
     }
 
@@ -88,3 +108,9 @@ public class Monster
     }
 }
 
+public class DamageDetails
+{
+    public bool Fainted { get; set; }
+    public float Critical { get; set; }
+    public float Type { get; set; }
+}
