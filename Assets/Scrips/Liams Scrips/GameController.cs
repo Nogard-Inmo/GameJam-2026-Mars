@@ -21,8 +21,11 @@ public class GameController : MonoBehaviour
        movementV2.OnEncountered += StartBattle;
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       //battleSystem.OnBattleOver += EndBattle;
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
        battleSystem.OnBattleOver += EndBattle;
@@ -35,6 +38,9 @@ public class GameController : MonoBehaviour
                 state = GameState.FreeRoam;
         };
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
