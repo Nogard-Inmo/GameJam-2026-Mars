@@ -23,5 +23,7 @@ public class PartyScreen: MonoBehaviour
             else
                 memberSlots[i].gameObject.SetActive(false);
         }
+
+
     }
 }
