@@ -14,8 +14,8 @@ public class EncounterThingy : MonoBehaviour, IPlayerTriggerable
         if (UnityEngine.Random.Range(1, 101) <= 10)
         {
 
-            //character.Animator.IsMoving = false;
-            //GameController.Instance.StartBattle();
+            character.Animator.IsMoving = false;
+            GameController.Instance.StartBattle();
 
         }
     }
