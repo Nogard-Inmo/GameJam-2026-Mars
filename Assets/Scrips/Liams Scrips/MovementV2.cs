@@ -67,7 +67,14 @@ public class MovementV2 : MonoBehaviour
 
     void Interact()
     {
-        var faceDir = new Vector3(animator.MoveX, animator.MoveY);
+        var faceingDir = new Vector3(animator.MoveX, animator.MoveY);
+        var interactPos = transform.position + faceingDir;
+
+        var collider = Physics2D.OverlapCircle(interactPos, 0.3f, GameLayers.i.InteractableLayer);
+        if (collider != null)
+        {
+            collider.GetComponent<NpcController>();
+        }
     }
 
     private void OnMoveOver() 
