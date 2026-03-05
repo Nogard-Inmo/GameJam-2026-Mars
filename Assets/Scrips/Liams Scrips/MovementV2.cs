@@ -20,6 +20,13 @@ public class MovementV2 : MonoBehaviour
 
     public void HandleUpdate()
     {
+
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
         if (!isMoving)
         {
             input.x = Input.GetAxisRaw("Horizontal");
@@ -50,33 +57,34 @@ public class MovementV2 : MonoBehaviour
             }
 
             animator.IsMoving = isMoving;
+
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                Interact();
+            }
         }
     }
 
-
-    // Update is called once per frame
-    void Update()
+    void Interact()
     {
-       
+        var faceDir = new Vector3(animator.MoveX, animator.MoveY);
     }
+
     private void OnMoveOver() 
     {
-        var facingDir = new Vector3(animator.MoveX, animator.MoveY);
-        var interactPos = transform.position + facingDir;
 
-        var colliders = Physics2D.OverlapCircleAll(transform.position, 0.3f, GameLayers.i.TriggerableLayers);
+        var colliders = Physics2D.OverlapCircleAll(transform.position, 0.2f, GameLayers.i.TriggerableLayers);
 
         foreach (var collider in colliders)
         {
             var triggerable = collider.GetComponent<IPlayerTriggerable>();
-            if (triggerable != null )
+            if (triggerable != null)
             {
+                
                 triggerable.OnPLayerTriggered(this);
                 break;
             }
         }
-
-
     }
 
     IEnumerator Move(Vector3 targetPos)
@@ -95,7 +103,7 @@ public class MovementV2 : MonoBehaviour
 
     private bool IsWalkable(Vector3 targetPos)
     {
-        if (Physics2D.OverlapCircle(targetPos, 0.3f, GameLayers.i.SolidLayer) != null)
+        if (Physics2D.OverlapCircle(targetPos, 0.3f, GameLayers.i.SolidLayer | GameLayers.i.InteractableLayer) != null)
         {
             return false;
         }
