@@ -3,26 +3,38 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+
+[System.Serializable]    
 public class Monster
 {
-
-    public MonsterBaseScript Base { get; set; }
-    public int level { get; set; }
+    [SerializeField] MonsterBaseScript _base;
+    [SerializeField] int level;
+    public MonsterBaseScript Base {
+        get
+        {
+            return _base;
+        }
+    }
+    public int Level {
+        get
+        {
+            return level;
+        }
+    }
 
     public int Hp { get; set; }
     public List<Ability> Abilities { get; set; }
 
-    public Monster(MonsterBaseScript pBase, int plevel)
+    public void Init()
     {
-        Base = pBase;
-        level = plevel;
+        
         Hp = MaxHp;
-
+            
         //Generate abilities
         Abilities = new List<Ability>();
             foreach (var learnableAbility in Base.learnableAbilities)
             {
-                if (learnableAbility.Level <= level)
+                if (learnableAbility.Level <= Level)
                 {
                     Abilities.Add(new Ability(learnableAbility.Base));
                 }
