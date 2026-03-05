@@ -73,7 +73,7 @@ public class MovementV2 : MonoBehaviour
         var collider = Physics2D.OverlapCircle(interactPos, 0.3f, GameLayers.i.InteractableLayer);
         if (collider != null)
         {
-            collider.GetComponent<NpcController>();
+            collider.GetComponent<Interacteblels>()?.Interact();
         }
     }
 

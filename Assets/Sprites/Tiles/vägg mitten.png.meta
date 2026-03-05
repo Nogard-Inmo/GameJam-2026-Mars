@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c74aaf9780aea2449acdc046150ab220
+guid: c93bf3f43b94b864a8f0974b9954ee63
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4455554845338317935
-    second: New_Piskel_2 (1)_0
+      213: -3701383444636607073
+    second: "v\xE4gg mitten_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: New_Piskel_2 (1)_0
+      name: "v\xE4gg mitten_0"
       rect:
         serializedVersion: 2
-        x: 7
-        y: 6
-        width: 16
-        height: 16
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 3, y: 2, z: 3, w: 2}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f6439a9768f45dd30800000000000000
-      internalID: 4455554845338317935
+      spriteID: f9d5cec2e5b02acc0800000000000000
+      internalID: -3701383444636607073
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f393f8a48f0470a40a600e26f66dc316
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      New_Piskel_2 (1)_0: 4455554845338317935
+      "v\xE4gg mitten_0": -3701383444636607073
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
