@@ -68,8 +68,8 @@ public class Monster
     {
         float modifiers = Random.Range(0.85f, 1f);
         float a = (2 * attacker.level + 10) / 250f;
-        float ab = a * ability.Base.Power * ((float)attacker.Attack / Defense) + 2;
-        int damage = Mathf.FloorToInt(ab * modifiers);
+        float d = a * ability.Base.Power * ((float)attacker.Attack / Defense) + 2;
+        int damage = Mathf.FloorToInt(d * modifiers);
 
         Hp -= damage;
         if (Hp <= 0)

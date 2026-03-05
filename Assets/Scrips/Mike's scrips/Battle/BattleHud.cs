@@ -15,7 +15,8 @@ public class BattleHud : MonoBehaviour
         _monster = monster;
         nameText.text = monster.Base.name;
         levelText.text = "Lvl " + monster.level;
-        hpBar.SetHP((float)monster.Hp / monster.MaxHp);
+        float normalized = Mathf.Clamp01((float)monster.Hp / monster.MaxHp);
+        hpBar.SetHP(normalized);
     }
 
     public void UpdateHP()
@@ -25,6 +26,7 @@ public class BattleHud : MonoBehaviour
             return;
         }
 
-        hpBar.SetHP((float)_monster.Hp / _monster.Base.MaxHp);
+        float normalized = Mathf.Clamp01((float)_monster.Hp / _monster.MaxHp);
+        hpBar.SetHP(normalized);
     }
 }
