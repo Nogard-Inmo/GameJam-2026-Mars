@@ -4156,7 +4156,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11dbaed314f82e746b817b48b7569a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsters: []
+  monsters:
+  - _base: {fileID: 11400000, guid: ecbcd613b2afb6e4b9b7add5dfd5e114, type: 2}
+    level: 5
+  - _base: {fileID: 11400000, guid: f2a4d35662de78f46b1e4bc957c3ca87, type: 2}
+    level: 8
+  - _base: {fileID: 11400000, guid: 42c29dda410fb9c47893aa51aaf52e12, type: 2}
+    level: 5
 --- !u!1 &8238012377784306037
 GameObject:
   m_ObjectHideFlags: 0

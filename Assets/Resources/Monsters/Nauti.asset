@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Nauti
   description: 
-  frontSprite: {fileID: -6159317351501391959, guid: c6300cf1998b08b4080868c4ef4bd43c, type: 3}
-  backSprite: {fileID: -6159317351501391959, guid: c6300cf1998b08b4080868c4ef4bd43c, type: 3}
+  frontSprite: {fileID: 4245814718526414900, guid: eee13845bb2bc5047a871f0c86fea619, type: 3}
+  backSprite: {fileID: 4245814718526414900, guid: eee13845bb2bc5047a871f0c86fea619, type: 3}
   type1: 3
   maxHp: 50
   attack: 40
