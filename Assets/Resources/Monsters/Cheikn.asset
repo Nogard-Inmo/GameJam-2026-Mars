@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8510819aa6e79244827159f3ee1ee62, type: 3}
   m_Name: Cheikn
   m_EditorClassIdentifier: 
-  name: 
+  name: Cheikn
   description: 
-  frontSprite: {fileID: 0}
-  backSprite: {fileID: 0}
+  frontSprite: {fileID: 5721342885922900818, guid: 27240351175128f4fa2aa995fcd4fe20, type: 3}
+  backSprite: {fileID: 5721342885922900818, guid: 27240351175128f4fa2aa995fcd4fe20, type: 3}
   type1: 0
-  maxHp: 0
-  attack: 0
-  defense: 0
-  spAttack: 0
-  spDefense: 0
-  speed: 0
+  maxHp: 60
+  attack: 20
+  defense: 10
+  spAttack: 10
+  spDefense: 10
+  speed: 1
   xpYield: 0
   catchRate: 255
-  learnableAbilities: []
+  learnableAbilities:
+  - abilityBase: {fileID: 11400000, guid: 5ed7465fe5e4ce34fbe94c09d94e0aa2, type: 2}
+    level: 2
