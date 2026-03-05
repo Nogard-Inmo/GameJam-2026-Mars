@@ -211,7 +211,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
     {
         if (state == BattleState.ActionSelection)
         {
-            HandleActionSelector();
+            HandleActionSelection();
         }
         else if (state == BattleState.AbillitySelection)
         {
@@ -219,7 +219,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         }
     }
 
-    void HandleActionSelector()
+    void HandleActionSelection()
     {
         if(Input.GetKeyDown(KeyCode.RightArrow))
         {
