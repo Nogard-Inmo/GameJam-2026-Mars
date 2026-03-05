@@ -21,7 +21,7 @@ public class MovementV2 : MonoBehaviour
     // Update is called once per frame
     public void HandleUpdate()
     {
-        if (!character.Animator.IsMoving)
+        if (!character.IsMoving)
         {
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");
@@ -36,6 +36,8 @@ public class MovementV2 : MonoBehaviour
             {
                 StartCoroutine(character.Move(input, CheckForEncounters));
             }
+
+            character.HandleUpdate();
 
             if (Input.GetKeyDown(KeyCode.Z))
             {

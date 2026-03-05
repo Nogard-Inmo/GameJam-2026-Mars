@@ -1544,6 +1544,8 @@ GameObject:
   - component: {fileID: 1684061891}
   - component: {fileID: 1684061890}
   - component: {fileID: 1684061889}
+  - component: {fileID: 1684061895}
+  - component: {fileID: 1684061894}
   m_Layer: 10
   m_Name: NPC
   m_TagString: Untagged
@@ -1688,7 +1690,7 @@ Transform:
   m_GameObject: {fileID: 1684061888}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 2.8, z: 0}
+  m_LocalPosition: {x: -7.5, y: -3.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1710,6 +1712,36 @@ MonoBehaviour:
     lines:
     - ' if you go through the triangles'
     - you might find some monsters tom catch.
+  movementPattern: []
+--- !u!114 &1684061894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684061888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78fb724dd912e8f458230d19803c1ef0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 4
+--- !u!114 &1684061895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684061888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f58273e3c9eba04ba9646870909fa4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkDownSprites: []
+  walkUpSprites: []
+  walkLeftSprites: []
+  walkRightSprites: []
 --- !u!1 &1708188804
 GameObject:
   m_ObjectHideFlags: 0
@@ -4937,7 +4969,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef9194ca3800514c9eb57322e35e665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
 --- !u!222 &1759184926566594403
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7295,10 +7326,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3222716375450909469}
   - component: {fileID: 5509320839590043080}
+  - component: {fileID: 8316653950920642008}
   - component: {fileID: 1741778192964369497}
   - component: {fileID: 8316653950920642007}
   - component: {fileID: 6521122255682527517}
-  - component: {fileID: 8316653950920642008}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -7852,6 +7883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78fb724dd912e8f458230d19803c1ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 3
 --- !u!224 &8468576849575384485
 RectTransform:
   m_ObjectHideFlags: 0

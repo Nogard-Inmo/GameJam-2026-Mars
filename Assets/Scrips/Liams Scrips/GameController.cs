@@ -4,7 +4,7 @@ using UnityEngine.PlayerLoop;
 using System.Collections;
 using System.Collections.Generic;
 
-public enum GameState { FreeRoam, Battle }
+public enum GameState { FreeRoam, Battle, Dialog }
 
 public class GameController : MonoBehaviour
 {
@@ -19,11 +19,21 @@ public class GameController : MonoBehaviour
     {
 
        movementV2.OnEncountered += StartBattle;
+<<<<<<< Updated upstream
       //battleSystem.OnBattleOver += EndBattle;
+=======
+       battleSystem.OnBattleOver += EndBattle;
+
+        DialogManager.Instance.OnShowDialog += () => {
+            state = GameState.Dialog;
+        };  
+        DialogManager.Instance.OnCloseDialog += () => {
+            if(state == GameState.Dialog)
+                state = GameState.FreeRoam;
+        };
+>>>>>>> Stashed changes
 
     }
-
-
 
     private void Update()
     {
@@ -34,6 +44,10 @@ public class GameController : MonoBehaviour
         else if(state == GameState.Battle)
         {
             battleSystem.HandleUpdate();
+        }
+        else if(state == GameState.Dialog)
+        {
+            DialogManager.Instance.HandleUpdate();
         }
     }
 
@@ -57,9 +71,11 @@ public class GameController : MonoBehaviour
         
     }
 
-    void EndBattle()
+    void EndBattle(bool won)
     {
-
+        state = GameState.FreeRoam;
+        battleSystem.gameObject.SetActive(false);
+        worldCamera.gameObject.SetActive(true);
     }
 
 }

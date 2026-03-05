@@ -15,7 +15,7 @@ public class EncounterThingy : MonoBehaviour, IPlayerTriggerable
         {
 
             character.Animator.IsMoving = false;
-            GameController.Instance.StartBattle();
+            //GameController.Instance.StartBattle();
 
         }
     }

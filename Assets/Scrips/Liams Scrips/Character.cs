@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Windows;
 
@@ -8,7 +9,9 @@ public class Character : MonoBehaviour
 {
     CharacterAnimator animator;
 
-    [SerializeField] float speed;
+    public float speed;
+
+    public bool IsMoving { get;  private set; }
 
     private void Awake()
     {
@@ -17,8 +20,8 @@ public class Character : MonoBehaviour
 
     public IEnumerator Move(Vector2 moveVec, Action OnMoveOver=null)
     {
-        animator.MoveX = moveVec.x;
-        animator.MoveY = moveVec.y;
+        animator.MoveX = Mathf.Clamp(moveVec.x, -1f, 1f);
+        animator.MoveY = Mathf.Clamp(moveVec.y, -1f, 1f);
 
         var targetPos = transform.position;
         targetPos.x += moveVec.x;
@@ -27,7 +30,7 @@ public class Character : MonoBehaviour
         if (!IsWalkable(targetPos))
             yield break;
 
-        animator.IsMoving = true;
+        IsMoving = true;
 
         while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
         {
@@ -35,9 +38,14 @@ public class Character : MonoBehaviour
             yield return null;
         }
         transform.position = targetPos;
-        animator.IsMoving = false;
+        IsMoving = false;
 
         OnMoveOver?.Invoke();
+    }
+
+    public void HandleUpdate()
+    {
+        animator.IsMoving = IsMoving;
     }
 
     private bool IsWalkable(Vector3 targetPos)
