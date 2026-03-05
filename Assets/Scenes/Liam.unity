@@ -198,10 +198,10 @@ MonoBehaviour:
     m_Bits: 128
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   fovLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -1681,8 +1681,8 @@ GameObject:
   - component: {fileID: 1684061891}
   - component: {fileID: 1684061890}
   - component: {fileID: 1684061889}
-  m_Layer: 0
-  m_Name: Square
+  m_Layer: 10
+  m_Name: NPC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

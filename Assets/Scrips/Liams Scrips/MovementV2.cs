@@ -57,8 +57,19 @@ public class MovementV2 : MonoBehaviour
             }
 
             animator.IsMoving = isMoving;
+
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                Interact();
+            }
         }
     }
+
+    void Interact()
+    {
+        var faceDir = new Vector3(animator.MoveX, animator.MoveY);
+    }
+
     private void OnMoveOver() 
     {
 
