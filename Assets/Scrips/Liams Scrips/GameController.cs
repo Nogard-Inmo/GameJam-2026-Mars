@@ -47,14 +47,14 @@ public class GameController : MonoBehaviour
         battleSystem.gameObject.SetActive(true);
         worldCamera.gameObject.SetActive(false);
 
-        /*
+        
         var playerParty = movementV2.gameObject.GetComponent<MonsterParty>();
         var wildMonster = FindObjectOfType<MapArea>().GetComponent<MapArea>().GetRandomWildMonster();
 
-        var wildMonsterCopy = new Monster(wildMonster.Base, wildMonster.Level);
+       // var wildMonsterCopy = new Monster(wildMonster.Base, wildMonster.Level);
 
-        battleSystem.StartBattle(playerParty, wildMonsterCopy);
-        */
+        battleSystem.StartBattle(playerParty, wildMonster);
+        
     }
 
     void EndBattle()
