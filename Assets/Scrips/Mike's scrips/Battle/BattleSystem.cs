@@ -18,6 +18,8 @@ public class BattleSystem : MonoBehaviour
     public event Action<bool> OnBattleOver;
 
     BattleState state;
+    BattleState? prevState;
+
     int currentAction;
     int currentAbility;
     int currentMember;
@@ -80,6 +82,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
     IEnumerator RunTurns(BattleAction playerAction)
     {
         state = BattleState.RunningTurn;
+
         if (playerAction == BattleAction.Ability)
         {
             playerUnit.monster.CurrentAbility = playerUnit.monster.Abilities[currentAbility];
@@ -89,7 +92,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
             bool playerGoesFirst = playerUnit.monster.Speed >= enemyUnit.monster.Speed;
 
             var firstUnit = (playerGoesFirst) ? playerUnit : enemyUnit;
-            var secondUnit = (playerGoesFirst) ? enemyUnit : playerUnit;
+            var secondUnit = (playerGoesFirst) ? enemyUnit : firstUnit;
 
             //First turn
             yield return RunAbility(firstUnit, secondUnit, firstUnit.monster.CurrentAbility);
@@ -101,86 +104,81 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
             //yield return RunAfterTurn(secondUnit);
             if (state == BattleState.BattleOver) yield break;
         }
-    }
-
-    IEnumerator PlayerAbility()
-    {
-        state = BattleState.RunningTurn;  
-        
-        var ability = playerUnit.monster.Abilities[currentAbility];
-
-        yield return RunAbility(playerUnit, enemyUnit, ability);
-        //If battle state was not changed by RunAbility, then go to the next step
-        if (state == BattleState.RunningTurn)
-            StartCoroutine(EnemyAbility());
-
-    }
-
-    IEnumerator EnemyAbility()
-    {
-        state = BattleState.RunningTurn;
-
-        var ability = enemyUnit.monster.GetRandomAbility();
-       
-        yield return RunAbility(enemyUnit, playerUnit, ability);
-        //If battle state was not changed by RunAbility, then go to the next step
-        if (state == BattleState.RunningTurn)
-            ActionSelection();
-        
-    }
-
-    IEnumerator RunAbility(BattleUnit sourceUnit, BattleUnit targetUnit, Ability ability)
-    {
-        ability.up--;
-        yield return dialogBox.TypeDialog($"{sourceUnit.monster.Base.Name} used {ability.Base.Name}!");
-
-        yield return new WaitForSeconds(1f);
-
-        var damageDetails = targetUnit.monster.TakeDamage(ability, sourceUnit.monster);
-        yield return targetUnit.Hud.UpdateHP();
-        yield return ShowDamageDetails(damageDetails);
-
-        if (damageDetails.Fainted)
-        {
-            yield return dialogBox.TypeDialog($"{targetUnit.monster.Base.Name} got disintergrated!");
-
-
-            CheckForBattleOver(targetUnit);
-        }
-    }
-
-    void CheckForBattleOver(BattleUnit faintedUnit)
-    {
-        
-        if(faintedUnit.IsPlayerUnit)
-        {
-            var nextMonster = playerParty.GetHealthyMonster();
-            if (nextMonster != null)
-            {
-                OpenPartyScreen();
-            }
-            else
-            {
-                // Lose
-                BattleOver(false);
-            }
-        }
-
         else
         {
-            BattleOver(true);
+            if (playerAction == BattleAction.SwitchMonster)
+            {
+                var selectedMonster = playerParty.GetHealthyMonster();
+
+                
+
+                state = BattleState.Busy;
+                yield return SwitchMonster(selectedMonster);
+            }
+
+
+            //Enemy's turn
+            var enemyAbility = enemyUnit.monster.GetRandomAbility();
+
+            yield return RunAbility(enemyUnit, playerUnit, enemyAbility);
+            //yield return RunAfterTurn(enemyUnit);
+            if (state == BattleState.BattleOver) yield break;
+
         }
 
-    }
+        IEnumerator RunAbility(BattleUnit sourceUnit, BattleUnit targetUnit, Ability ability)
+        {
+            ability.up--;
+            yield return dialogBox.TypeDialog($"{sourceUnit.monster.Base.Name} used {ability.Base.Name}!");
 
-    IEnumerator ShowDamageDetails(DamageDetails damageDetails)
-    {
-        if (damageDetails.Critical > 1f)
-            yield return dialogBox.TypeDialog("A Brutal hit!");
-        if (damageDetails.Type > 1f)
-            yield return dialogBox.TypeDialog("It's super effective!");
-        else if (damageDetails.Type < 1f)
-            yield return dialogBox.TypeDialog("It's not very effective...");
+            yield return new WaitForSeconds(1f);
+
+            var damageDetails = targetUnit.monster.TakeDamage(ability, sourceUnit.monster);
+            yield return targetUnit.Hud.UpdateHP();
+            yield return ShowDamageDetails(damageDetails);
+
+            if (damageDetails.Fainted)
+            {
+                yield return dialogBox.TypeDialog($"{targetUnit.monster.Base.Name} got disintergrated!");
+
+
+                CheckForBattleOver(targetUnit);
+            }
+        }
+
+        void CheckForBattleOver(BattleUnit faintedUnit)
+        {
+
+            if (faintedUnit.IsPlayerUnit)
+            {
+                var nextMonster = playerParty.GetHealthyMonster();
+                if (nextMonster != null)
+                {
+                    OpenPartyScreen();
+                }
+                else
+                {
+                    // Lose
+                    BattleOver(false);
+                }
+            }
+
+            else
+            {
+                BattleOver(true);
+            }
+
+        }
+
+        IEnumerator ShowDamageDetails(DamageDetails damageDetails)
+        {
+            if (damageDetails.Critical > 1f)
+                yield return dialogBox.TypeDialog("A Brutal hit!");
+            if (damageDetails.Type > 1f)
+                yield return dialogBox.TypeDialog("It's super effective!");
+            else if (damageDetails.Type < 1f)
+                yield return dialogBox.TypeDialog("It's not very effective...");
+        }
     }   
 
     public void HandleUpdate()
@@ -197,17 +195,25 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
 
     void HandleActionSelector()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if(Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (currentAction < 1)
                 ++currentAction;
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+                --currentAction;
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+                currentAction += 2;
 
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (currentAction > 0)
-                --currentAction;
+              currentAction -=2 ;
         }
+
+        currentAction = Mathf.Clamp(currentAction, 0, 3);
 
         dialogBox.UpdateActionSelection(currentAction);
 
@@ -220,9 +226,18 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
             }
             else if (currentAction == 1)
             {
-                // Run
-                dialogBox.EnableActionSelector(false);
+                // Bag
+            }
 
+            else if (currentAction == 2)
+            {
+                // Monster
+                prevState = state;
+                OpenPartyScreen();
+            }
+            else if (currentAction == 3)
+            {
+                // Run
             }
         }
     }
@@ -291,21 +306,34 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            var selectedMonster = playerParty.Monsters[currentMember];
-            if (selectedMonster.Hp <= 0)
+            var selectedMember = playerParty.Monsters[currentMember];
+            if (selectedMember.Hp <= 0)
             {
                 //partyScreen.SetMessageText("You can't send out a fainted monster");
                 return;
             }
-            if (selectedMonster == playerUnit.monster)
+            if (selectedMember == playerUnit.monster)
             {
                 //partyScreen.SetMessageText("You can't switch with the same monster");
                 return;
             }
 
            // partyScreen.gameObject.SetActive(false);
-            state = BattleState.Busy;
-            StartCoroutine(SwitchMonster(selectedMonster));
+
+            if (prevState == BattleState.ActionSelection)
+            {
+                prevState = null;
+                StartCoroutine(RunTurns(BattleAction.SwitchMonster));
+            }
+            else
+            {
+                state = BattleState.Busy;
+                StartCoroutine(SwitchMonster(selectedMember));
+            }
+
+                StartCoroutine(SwitchMonster(selectedMember));
+
+
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
@@ -316,7 +344,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
 
     IEnumerator SwitchMonster(Monster newMonster)
     {
-        state = BattleState.Busy;
+ 
         if (playerUnit.monster.Hp > 0)
         {
             yield return dialogBox.TypeDialog($"Get over here {playerUnit.monster.Base.Name}!");
@@ -326,6 +354,6 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         dialogBox.SetAbilityNames(playerUnit.monster.Abilities);
         yield return dialogBox.TypeDialog($"Get moving {playerUnit.monster.Base.Name}!");
         
-        StartCoroutine(EnemyAbility());
+        state = BattleState.RunningTurn;
     }
 }
