@@ -55,6 +55,7 @@ public class BattleSystem : MonoBehaviour
     {
         state = BattleState.Busy;       
         var ability = playerUnit.monster.Abilities[currentAbility];
+        ability.up--;
         yield return dialogBox.TypeDialog($"{playerUnit.monster.Base.Name} used {ability.Base.Name}!");
 
         yield return new WaitForSeconds(1f);
@@ -79,7 +80,7 @@ public class BattleSystem : MonoBehaviour
     {
         state = BattleState.EnemyAbility;
         var ability = enemyUnit.monster.GetRandomAbility();
-
+        ability.up--;
         yield return dialogBox.TypeDialog($"{enemyUnit.monster.Base.Name} used {ability.Base.Name}!");
 
         yield return new WaitForSeconds(1f);
@@ -108,7 +109,7 @@ public class BattleSystem : MonoBehaviour
             yield return dialogBox.TypeDialog("It's not very effective...");
     }   
 
-    private void Update()
+    public void HandleUpdate()
     {
         if (state == BattleState.PlayerAction)
         {
