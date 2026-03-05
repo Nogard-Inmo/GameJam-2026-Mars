@@ -1,18 +1,21 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class MonsterParty : MonoBehaviour
 {
     [SerializeField] List<Monster> monsters;
     public List<Monster> Monsters { get { return monsters; } }
-    public void AddMonster(Monster monster) 
+    
+    private void Start()
     {
-        if (monsters.Count >= 6)
-        {
-            Debug.Log("Party is full");
-            return;
-        }
-        monsters.Add(monster);
+        foreach (var monster in monsters)
+            monster.Init();
+    }
+
+    public Monster GetHealthyMonster()
+    {
+       return monsters.Where(x => x.Hp > 0).FirstOrDefault();
     }
 }
