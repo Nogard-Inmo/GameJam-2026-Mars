@@ -1,14 +1,33 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
+
+public enum GameState { FreeRoam, Battle, Dialog }
 
 public class GameController : MonoBehaviour
 {
+    [SerializeField] MovementV2 movementV2;
+    [SerializeField] BattleSystem battleSystem;
 
-    BattleSystem battleSystem;
-    MovementV2 movementV2;
+    GameState state;
+
+
+    private void Update()
+    {
+        if(state == GameState.FreeRoam)
+        {
+            movementV2.HandleUpdate();
+        }
+        else if(state == GameState.Battle)
+        {
+            battleSystem.HandleUpdate();
+        }
+    }
+
 
     void StartBattle()
     {
-        /*
+       /* 
        state = GameState.Battle;
         battleSystem.gameObject.SetActive(true);
         worldCamera.gameObject.SetActive(false);
@@ -19,8 +38,8 @@ public class GameController : MonoBehaviour
         var wildMonsterCopy = new Monster(wildMonster.Base, wildMonster.Level);
 
         battleSystem.StartBattle(playerParty, wildMonsterCopy);
+        
         */
-
     }
 
 }
