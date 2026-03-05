@@ -19,32 +19,19 @@ public class GameController : MonoBehaviour
     {
 
        movementV2.OnEncountered += StartBattle;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
       //battleSystem.OnBattleOver += EndBattle;
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
        battleSystem.OnBattleOver += EndBattle;
 
         DialogManager.Instance.OnShowDialog += () => {
             state = GameState.Dialog;
-        };  
-        DialogManager.Instance.OnCloseDialog += () => {
-            if(state == GameState.Dialog)
+        };
+        DialogManager.Instance.OnCloseDialog += () =>
+        {
+            if (state == GameState.Dialog)
                 state = GameState.FreeRoam;
         };
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-
     }
 
     private void Update()
