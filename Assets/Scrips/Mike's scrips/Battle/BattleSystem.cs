@@ -2,8 +2,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Analytics;
+using System;
 
-public enum BattleState { Start, PlayerAction, PlayerAbility, EnemyAbility, Busy }
+public enum BattleState { Start, ActionSelection, AbillitySelection, PerformAbility, Busy, PartyScreen }
 
 public class BattleSystem : MonoBehaviour
 {
@@ -12,48 +13,70 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] BattleHud playerHud;
     [SerializeField] BattleHud enemyHud;
     [SerializeField] BattleDialogBox dialogBox;
+    //[SerializeField] PartyScreen partyScreen;
+
+    public event Action<bool> OnBattleOver;
 
     BattleState state;
     int currentAction;
     int currentAbility;
+    int currentMember;
 
-    private void Start()
+    MonsterParty playerParty;
+    Monster wildMonster;
+
+public void StartBattle(MonsterParty playerParty, Monster wildMonster)
     {
+        this.playerParty = playerParty;
+        this.wildMonster = wildMonster;
         StartCoroutine(SetupBattle());
     }
+
     public IEnumerator SetupBattle()
     {
-        //playerUnit.Setup();
-        //enemyUnit.Setup();
+        //playerUnit.Setup(playerParty.GetHealthyMonster());
+        enemyUnit.Setup(wildMonster);
         playerHud.SetData(playerUnit.monster);
         enemyHud.SetData(enemyUnit.monster);
+
+        //partyScreen.Init();
 
         dialogBox.SetAbilityNames(playerUnit.monster.Abilities);
 
         yield return dialogBox.TypeDialog($"An endangered {enemyUnit.monster.Base.Name} has spawned.");
         yield return new WaitForSeconds(1f);
 
-        PlayerAction();
+        ActionSelection();
     }
 
-    void PlayerAction()
+    void ActionSelection()
     {
-        state = BattleState.PlayerAction;
+        state = BattleState.ActionSelection;
         StartCoroutine(dialogBox.TypeDialog("Choose an action"));
         dialogBox.EnableActionSelector(true);
     }
 
-    void PlayerAbility()
+    void OpenPartyScreen()
     {
-        state = BattleState.PlayerAbility;
+        /*
+        state = BattleState.PartyScreen;
+        partyScreen.SetPartyData(playerParty.Monsters);
+        partyScreen.gameObject.SetActive(true);
+        */
+    }
+
+    void AbillitySelection()
+    {
+        state = BattleState.AbillitySelection;
         dialogBox.EnableActionSelector(false);
         dialogBox.EnableDialogText(false);
         dialogBox.EnableAbilitySelector(true);
     }
 
-    IEnumerator PerformPlayerAbility()
+    IEnumerator PlayerAbility()
     {
-        state = BattleState.Busy;       
+        state = BattleState.PerformAbility;  
+        
         var ability = playerUnit.monster.Abilities[currentAbility];
         ability.up--;
         yield return dialogBox.TypeDialog($"{playerUnit.monster.Base.Name} used {ability.Base.Name}!");
@@ -78,7 +101,8 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyAbility()
     {
-        state = BattleState.EnemyAbility;
+        state = BattleState.PerformAbility;
+
         var ability = enemyUnit.monster.GetRandomAbility();
         ability.up--;
         yield return dialogBox.TypeDialog($"{enemyUnit.monster.Base.Name} used {ability.Base.Name}!");
@@ -95,8 +119,43 @@ public class BattleSystem : MonoBehaviour
         }
         else
         {
-            PlayerAction();
+            ActionSelection();
         }
+    }
+
+    IEnumerator RunAbility(BattleUnit sourceUnit, BattleUnit targetUnit, Ability ability)
+    {
+        ability.up--;
+        yield return dialogBox.TypeDialog($"{sourceUnit.monster.Base.Name} used {ability.Base.Name}!");
+
+        yield return new WaitForSeconds(1f);
+
+        var damageDetails = targetUnit.monster.TakeDamage(ability, sourceUnit.monster);
+        yield return enemyHud.UpdateHP();
+        yield return ShowDamageDetails(damageDetails);
+
+        if (damageDetails.Fainted)
+        {
+            yield return dialogBox.TypeDialog($"{targetUnit.monster.Base.Name} is unable to fight");
+
+
+        }
+    }
+
+    void CheckForBattleOver(BattleUnit faintedUnit)
+    {
+        /*
+        if(faintedUnit.IsPlayerUnit)
+        {
+            // Open party screen
+            OpenPartyScreen();
+        }
+        else
+        {
+            // Win battle
+            OnBattleOver?.Invoke(true);
+        }
+        */
     }
 
     IEnumerator ShowDamageDetails(DamageDetails damageDetails)
@@ -111,11 +170,11 @@ public class BattleSystem : MonoBehaviour
 
     public void HandleUpdate()
     {
-        if (state == BattleState.PlayerAction)
+        if (state == BattleState.ActionSelection)
         {
             HandleActionSelector();
         }
-        else if (state == BattleState.PlayerAbility)
+        else if (state == BattleState.AbillitySelection)
         {
             HandleAbilitySelection();
         }
@@ -142,7 +201,7 @@ public class BattleSystem : MonoBehaviour
             if (currentAction == 0)
             {
                 // Fight
-                PlayerAbility();
+                AbillitySelection();
             }
             else if (currentAction == 1)
             {
@@ -196,7 +255,7 @@ public class BattleSystem : MonoBehaviour
         {
             dialogBox.EnableAbilitySelector(false);
             dialogBox.EnableDialogText(true);
-            StartCoroutine(PerformPlayerAbility());
+            StartCoroutine(PlayerAbility());
         }
     }
 }

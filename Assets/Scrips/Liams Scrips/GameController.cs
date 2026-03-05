@@ -15,15 +15,12 @@ public class GameController : MonoBehaviour
     GameState state;
 
 
-    private void Awake()
-    {
-       // ConditionDB.Init();
-    }
-
     private void Start()
     {
+
        movementV2.OnEncountered += StartBattle;
       // battleSystem.OnBattleOver += EndBattle;
+
     }
 
 
@@ -43,13 +40,14 @@ public class GameController : MonoBehaviour
 
 
 
-    void StartBattle()
+    public void StartBattle()
     {
-        /*
-       state = GameState.Battle;
+        
+        state = GameState.Battle;
         battleSystem.gameObject.SetActive(true);
         worldCamera.gameObject.SetActive(false);
 
+        /*
         var playerParty = movementV2.gameObject.GetComponent<MonsterParty>();
         var wildMonster = FindObjectOfType<MapArea>().GetComponent<MapArea>().GetRandomWildMonster();
 

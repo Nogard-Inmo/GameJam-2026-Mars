@@ -161,7 +161,7 @@ Transform:
   m_GameObject: {fileID: 50479107}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.89529145, y: -0.73000014, z: 0.006036791}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -179,8 +179,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b838e3c022808444987889fc96e3bd9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementV2: {fileID: 0}
-  battleSystem: {fileID: 0}
+  movementV2: {fileID: 6858753763245226510}
+  battleSystem: {fileID: 5109750589147985686}
+  worldCamera: {fileID: 519420031}
 --- !u!114 &50479111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7727,8 +7728,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f236e2dd6e79dea45b0ee8bb278848aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _base: {fileID: 11400000, guid: ecbcd613b2afb6e4b9b7add5dfd5e114, type: 2}
-  level: 75
   isPlayerUnit: 0
 --- !u!224 &7471788424692510238
 RectTransform:
@@ -7844,8 +7843,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f236e2dd6e79dea45b0ee8bb278848aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _base: {fileID: 11400000, guid: f2a4d35662de78f46b1e4bc957c3ca87, type: 2}
-  level: 80
   isPlayerUnit: 1
 --- !u!4 &7852270258765349418
 Transform:

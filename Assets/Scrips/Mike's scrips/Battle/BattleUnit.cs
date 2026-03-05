@@ -8,6 +8,8 @@ public class BattleUnit : MonoBehaviour
     [SerializeField] bool isPlayerUnit;
     public Monster monster { get; set; }    
 
+    Image image;
+
     public void Setup(Monster monster) 
     {   
         monster = monster;
