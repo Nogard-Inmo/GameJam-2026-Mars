@@ -108,7 +108,7 @@ public class BattleSystem : MonoBehaviour
             yield return dialogBox.TypeDialog("It's not very effective...");
     }   
 
-    public void HandleUpdate()
+    private void Update()
     {
         if (state == BattleState.PlayerAction)
         {
