@@ -53,14 +53,14 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PerformPlayerAbility()
     {
-        state = BattleState.Busy;
+        state = BattleState.Busy;       
         var ability = playerUnit.monster.Abilities[currentAbility];
         yield return dialogBox.TypeDialog($"{playerUnit.monster.Base.Name} used {ability.Base.Name}!");
 
         yield return new WaitForSeconds(1f);
 
         bool isFainted = enemyUnit.monster.TakeDamage(ability, playerUnit.monster);
-        enemyHud.UpdateHP();
+        yield return enemyHud.UpdateHP();
 
         if (isFainted)
         {
@@ -84,7 +84,7 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         bool isFainted = playerUnit.monster.TakeDamage(ability, playerUnit.monster);
-        playerHud.UpdateHP();
+        yield return playerHud.UpdateHP();
 
         if (isFainted)
         {
