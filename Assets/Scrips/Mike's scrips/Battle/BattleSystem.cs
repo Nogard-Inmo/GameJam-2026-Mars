@@ -5,7 +5,6 @@ using UnityEngine.Analytics;
 using System;
 
 public enum BattleState { Start, ActionSelection, AbillitySelection, RunningTurn, Busy, PartyScreen, BattleOver }
-
 public enum BattleAction { Ability, SwitchMonster, Run }
 public class BattleSystem : MonoBehaviour
 {
@@ -162,7 +161,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
 
 
            //statuses like burn or poison will hurt the pokemon after the turn
-           // sourceUnit.monster.OnAfterTurn();
+           //sourceUnit.monster.OnAfterTurn();
            // yield return ShowStatusChanges(sourceUnit.monster);
             yield return sourceUnit.Hud.UpdateHP();
             if (sourceUnit.monster.Hp <= 0)
@@ -216,6 +215,10 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         else if (state == BattleState.AbillitySelection)
         {
             HandleAbilitySelection();
+        }
+        else if (state == BattleState.PartyScreen)
+        {
+           
         }
     }
 
@@ -315,7 +318,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
 
         currentMember = Mathf.Clamp(currentMember, 0, playerParty.Monsters.Count - 1);
 
-        //partyScreen.UpdateMemberSelection(currentMember);
+        partyScreen.UpdateMemberSelection(currentMember);
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
