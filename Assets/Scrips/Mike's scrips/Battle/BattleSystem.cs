@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.Analytics;
 using System;
 
-public enum BattleState { Start, ActionSelection, AbillitySelection, PerformAbility, Busy, PartyScreen }
+public enum BattleState { Start, ActionSelection, AbillitySelection, PerformAbility, Busy, PartyScreen, BattleOver }
 
 public class BattleSystem : MonoBehaviour
 {
@@ -34,12 +34,12 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
 
     public IEnumerator SetupBattle()
     {
-        //playerUnit.Setup(playerParty.GetHealthyMonster());
+        playerUnit.Setup(playerParty.GetHealthyMonster());
         enemyUnit.Setup(wildMonster);
         playerHud.SetData(playerUnit.monster);
         enemyHud.SetData(enemyUnit.monster);
 
-        //partyScreen.Init();
+        partyScreen.Init();
 
         dialogBox.SetAbilityNames(playerUnit.monster.Abilities);
 
@@ -47,6 +47,12 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         yield return new WaitForSeconds(1f);
 
         ActionSelection();
+    }
+
+    void BattleOver(bool won)
+    {
+        state = BattleState.BattleOver;
+        OnBattleOver(won);
     }
 
     void ActionSelection()
@@ -58,11 +64,11 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
 
     void OpenPartyScreen()
     {
-        /*
+        
         state = BattleState.PartyScreen;
         partyScreen.SetPartyData(playerParty.Monsters);
         partyScreen.gameObject.SetActive(true);
-        */
+        
     }
 
     void AbillitySelection()
@@ -78,25 +84,12 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         state = BattleState.PerformAbility;  
         
         var ability = playerUnit.monster.Abilities[currentAbility];
-        ability.up--;
-        yield return dialogBox.TypeDialog($"{playerUnit.monster.Base.Name} used {ability.Base.Name}!");
 
-        yield return new WaitForSeconds(1f);
-
-        var damageDetails = enemyUnit.monster.TakeDamage(ability, playerUnit.monster);
-        yield return enemyHud.UpdateHP();
-        yield return ShowDamageDetails(damageDetails);
-
-        if (damageDetails.Fainted)
-        {
-            yield return dialogBox.TypeDialog($"{enemyUnit.monster.Base.Name} is unable to fight");
-        }
-        else
-        {
+        yield return RunAbility(playerUnit, enemyUnit, ability);
+        //If battle state was not changed by RunAbility, then go to the next step
+        if (state == BattleState.PerformAbility)
             StartCoroutine(EnemyAbility());
-        }
 
-        
     }
 
     IEnumerator EnemyAbility()
@@ -104,23 +97,12 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         state = BattleState.PerformAbility;
 
         var ability = enemyUnit.monster.GetRandomAbility();
-        ability.up--;
-        yield return dialogBox.TypeDialog($"{enemyUnit.monster.Base.Name} used {ability.Base.Name}!");
+       
+        yield return RunAbility(enemyUnit, playerUnit, ability);
 
-        yield return new WaitForSeconds(1f);
-
-        var damageDetails = playerUnit.monster.TakeDamage(ability, playerUnit.monster);
-        yield return playerHud.UpdateHP();
-        yield return ShowDamageDetails(damageDetails);
-
-        if (damageDetails.Fainted)
-        {
-            yield return dialogBox.TypeDialog($"{playerUnit.monster.Base.Name} is unable to fight");
-        }
-        else
-        {
+        if state == BattleState.PerformAbility 
             ActionSelection();
-        }
+        
     }
 
     IEnumerator RunAbility(BattleUnit sourceUnit, BattleUnit targetUnit, Ability ability)
@@ -136,26 +118,35 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
 
         if (damageDetails.Fainted)
         {
-            yield return dialogBox.TypeDialog($"{targetUnit.monster.Base.Name} is unable to fight");
+            yield return dialogBox.TypeDialog($"{targetUnit.monster.Base.Name} got disintergrated!");
 
 
+            CheckForBattleOver(targetUnit);
         }
     }
 
     void CheckForBattleOver(BattleUnit faintedUnit)
     {
-        /*
+        
         if(faintedUnit.IsPlayerUnit)
         {
-            // Open party screen
-            OpenPartyScreen();
+            var nextMonster = playerParty.GetHealthyMonster();
+            if (nextMonster != null)
+            {
+                OpenPartyScreen();
+            }
+            else
+            {
+                // Lose
+                BattleOver(false);
+            }
         }
+
         else
         {
-            // Win battle
-            OnBattleOver?.Invoke(true);
+            BattleOver(true);
         }
-        */
+
     }
 
     IEnumerator ShowDamageDetails(DamageDetails damageDetails)
