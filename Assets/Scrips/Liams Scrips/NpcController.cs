@@ -2,15 +2,18 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 
 public class NpcController : MonoBehaviour, Interacteblels
 {
 
     [SerializeField] Dialog dialog;
     [SerializeField] List<Vector2> movementPattern;
+    [SerializeField] float timeBetweenPattern;
 
     NpcState state;
     float idleTimer = 0f;
+    int currentPattern = 0;
 
     Character character;
 
@@ -21,22 +24,44 @@ public class NpcController : MonoBehaviour, Interacteblels
 
     public void Interact()
     {
-        StartCoroutine(DialogManager.Instance.ShowDialog(dialog));
+        if (state == NpcState.Idle)
+        {
+            state = NpcState.Dialog;
+            StartCoroutine(DialogManager.Instance.ShowDialog(dialog, () =>
+            {
+                idleTimer = 0f;
+                state = NpcState.Idle;
+            }));
+        }
+
     }
 
     private void Update()
     {
+
         if (state == NpcState.Idle)
         {
             idleTimer += Time.deltaTime;
-            if (idleTimer > 2f)
+            if (idleTimer > timeBetweenPattern)
             {
                 idleTimer = 0f;
-                StartCoroutine(character.Move(new Vector2(2, 0)));
+                if (movementPattern.Count > 0) 
+                    StartCoroutine(Walk());
             }
 
             character.HandleUpdate();
         }
     }
+
+    IEnumerator Walk()
+    {
+        state = NpcState.Walking;
+
+        yield return character.Move(movementPattern[currentPattern]);
+        print("hello I'm working here");
+        currentPattern = (currentPattern + 1) % movementPattern.Count;
+
+        state = NpcState.Idle;
+    }
 }
-public enum NpcState { Idle, Walking }
+public enum NpcState { Idle, Walking, Dialog }
