@@ -23,8 +23,8 @@ public class BattleSystem : MonoBehaviour
     }
     public IEnumerator SetupBattle()
     {
-        playerUnit.Setup();
-        enemyUnit.Setup();
+        //playerUnit.Setup();
+        //enemyUnit.Setup();
         playerHud.SetData(playerUnit.monster);
         enemyHud.SetData(enemyUnit.monster);
 
