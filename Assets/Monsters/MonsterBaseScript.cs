@@ -116,5 +116,26 @@ public enum MonsterType
     None,
     Fantasy,
     Science,
-    Ancient
+    Ancient,
+    Cursed
+}
+
+public class TypeChart
+{
+    static float[][] chart =
+    {
+                  //Fan, Sci, Anc, Cur
+        new float[] {1f, 0.5f, 2f, 2f }, //Fantasy
+        new float[] {2f, 1f, 0.5f, 1f }, //Science
+        new float[] {0.5f, 2f, 1f, 0.5f}, //Ancient
+        new float[] {2f, 2f, 0.5f, 2f},  //Cursed
+    };
+    public static float GetEffectiveness(MonsterType attackType, MonsterType defenseType)
+    {
+        if (attackType == MonsterType.None || defenseType == MonsterType.None)
+            return 1;
+        int row = (int)attackType - 1;
+        int col = (int)defenseType - 1;
+        return chart[row][col];
+    }
 }
