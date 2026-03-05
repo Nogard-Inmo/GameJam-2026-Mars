@@ -6,8 +6,8 @@ using System.Collections.Generic;
 public class Monster
 {
 
-    public MonsterBaseScript Base; //https://youtu.be/zKRMkD28-xY?t=1065
-    public int level;
+    public MonsterBaseScript Base { get; set; }
+    public int level { get; set; }
 
     public int Hp { get; set; }
     public List<Ability> Abilities { get; set; }
@@ -72,7 +72,7 @@ public class Monster
         int damage = Mathf.FloorToInt(ab * modifiers);
 
         Hp -= damage;
-        if (Hp < 0)
+        if (Hp <= 0)
         {
             Hp = 0;
             return true;
@@ -80,5 +80,10 @@ public class Monster
        
         return false;
         
+    }
+
+    public Ability GetRandomAbility()
+    {         int r = Random.Range(0, Abilities.Count);
+        return Abilities[r];
     }
 }
