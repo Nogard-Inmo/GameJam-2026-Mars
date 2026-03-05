@@ -1,9 +1,12 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class MovementV2 : MonoBehaviour
 {
+    public event Action OnEncountered;
+
     public float speed;
 
     private bool isMoving;

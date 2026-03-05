@@ -4823,6 +4823,7 @@ MonoBehaviour:
   nameText: {fileID: 4454947328668199916}
   levelText: {fileID: 3003452463663763769}
   hpBar: {fileID: 1763311970603228769}
+  animator: {fileID: 0}
 --- !u!1 &129060414642933284
 GameObject:
   m_ObjectHideFlags: 0
@@ -5243,7 +5244,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1431890226773690982
 GameObject:
   m_ObjectHideFlags: 0
@@ -7242,6 +7243,7 @@ MonoBehaviour:
   nameText: {fileID: 7180318494484256481}
   levelText: {fileID: 3889973666014930271}
   hpBar: {fileID: 4116727316558306656}
+  animator: {fileID: 0}
 --- !u!224 &6587421480475098196
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7270,7 +7272,7 @@ Transform:
   m_GameObject: {fileID: 1397713545808366153}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.2349781, y: 0.012602747, z: 0.06780727}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7359,7 +7361,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f58273e3c9eba04ba9646870909fa4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkDownSprites: []
+  walkDownSprites:
+  - {fileID: -7830519784129133643, guid: 46099d266ba0ffc43aee1f2b9da5b398, type: 3}
+  - {fileID: -825316476747250453, guid: 46099d266ba0ffc43aee1f2b9da5b398, type: 3}
+  - {fileID: -2832604295657172077, guid: 46099d266ba0ffc43aee1f2b9da5b398, type: 3}
   walkUpSprites: []
   walkLeftSprites: []
   walkRightSprites: []
