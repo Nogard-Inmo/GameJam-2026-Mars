@@ -7,7 +7,11 @@ public class BattleUnit : MonoBehaviour
 {
     [SerializeField] bool isPlayerUnit;
 
+    [SerializeField] BattleHud hud;
+
+
     public bool IsPlayerUnit { get { return isPlayerUnit; } }
+    public BattleHud Hud { get { return hud; } }
     public Monster monster { get; set; }    
 
     Image image;
@@ -29,6 +33,9 @@ public class BattleUnit : MonoBehaviour
         else
             GetComponent<Image>().sprite = monster.Base.frontSprite;    
         
+        hud.SetData(monster);
+
+        image.color = originalColor;
     }
 }
 

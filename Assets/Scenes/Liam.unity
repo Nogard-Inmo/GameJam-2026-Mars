@@ -6778,8 +6778,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerUnit: {fileID: 7812041407339655065}
   enemyUnit: {fileID: 7389392721280008425}
-  playerHud: {fileID: 6575032193223011712}
-  enemyHud: {fileID: 60147443575735098}
   dialogBox: {fileID: 4557032919726563871}
 --- !u!1 &5139703682117196360
 GameObject:
@@ -7542,6 +7540,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Portal
       objectReference: {fileID: 0}
+    - target: {fileID: 4913486548766897324, guid: ff69795f474758845986714585a223e9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7729,6 +7731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayerUnit: 0
+  hud: {fileID: 60147443575735098}
 --- !u!224 &7471788424692510238
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7844,6 +7847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayerUnit: 1
+  hud: {fileID: 6575032193223011712}
 --- !u!4 &7852270258765349418
 Transform:
   m_ObjectHideFlags: 0
