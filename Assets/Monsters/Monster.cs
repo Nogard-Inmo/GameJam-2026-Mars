@@ -8,6 +8,12 @@ public class Monster
     [SerializeField] MonsterBaseScript _base;
     [SerializeField] int level;
 
+    public Monster(MonsterBaseScript @base, int level)
+    {
+        _base = @base;
+        this.level = level;
+    }
+
     public MonsterBaseScript Base {
         get
         {
