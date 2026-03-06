@@ -1,37 +1,32 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
+
 
 public class MovementV2 : MonoBehaviour
 {
-    public float speed;
+    public float moveSpeed;
 
     private bool isMoving;
     private Vector2 input;
 
     private CharacterAnimator animator;
-    private Character character;
-
-    private void Awake()
+    private void Start()
     {
         animator = GetComponent<CharacterAnimator>();
-        character = GetComponent<Character>();
     }
 
-
-    // Update is called once per frame
-    public void HandleUpdate()
+    private void Update()
     {
         if (!isMoving)
         {
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");
 
-            // prevent diagonal movement
-            if (input.x != 0)
-            {
-                input.y = 0;
-            }
+            if (input.x != 0) input.y = 0;      
+
+             
 
             if (input != Vector2.zero)
             {
@@ -41,75 +36,56 @@ public class MovementV2 : MonoBehaviour
                 var targetPos = transform.position;
                 targetPos.x += input.x;
                 targetPos.y += input.y;
-                if (IsWalkable(targetPos))
-                {
 
-                    StartCoroutine(Move(targetPos));
-
-                }
-
-                OnMoveOver();
-            }
-
-            animator.IsMoving = isMoving;
-
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                Interact();
+                StartCoroutine(Move(targetPos));
             }
         }
+
+        animator.IsMoving = isMoving;
+
+        /*if (Input.GetKeyDown(KeyCode.Z))
+            Interact();*/
     }
 
-    void Interact()
+    /*void Interact()
     {
-        var faceingDir = new Vector3(animator.MoveX, animator.MoveY);
-        var interactPos = transform.position + faceingDir;
+        var facingDir = new Vector3(animator.MoveX, animator MoveY");
+        var interactPos = transform.position + facingDir;
 
         var collider = Physics2D.OverlapCircle(interactPos, 0.3f, GameLayers.i.InteractableLayer);
         if (collider != null)
         {
-            collider.GetComponent<Interacteblels>()?.Interact();
+            collider.GetComponent<Interactable>()?.Interact();
         }
-    }
-
-    private void OnMoveOver() 
-    {
-
-        var colliders = Physics2D.OverlapCircleAll(transform.position, 0.2f, GameLayers.i.TriggerableLayers);
-
-        foreach (var collider in colliders)
-        {
-            var triggerable = collider.GetComponent<IPlayerTriggerable>();
-            if (triggerable != null)
-            {
-                
-                triggerable.OnPLayerTriggered(this);
-                break;
-            }
-        }
-    }
-
-    IEnumerator Move(Vector3 targetPos)
+    }*/
+    IEnumerator Move(Vector3 targetPos) 
     {
         isMoving = true;
 
-        while ((targetPos -transform.position).sqrMagnitude > Mathf.Epsilon)
+        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
             yield return null;
         }
         transform.position = targetPos;
+
         isMoving = false;
-
     }
 
-    private bool IsWalkable(Vector3 targetPos)
+    /*private void CheckForEncounters()
     {
-        if (Physics2D.OverlapCircle(targetPos, 0.3f, GameLayers.i.SolidLayer | GameLayers.i.InteractableLayer) != null)
+        if (Physics2D.OverlapCircle(transform.position, 0.2f, GameLayers.i.GrassLayer) != null)
         {
-            return false;
+            if (UnityEngine.Random.Range(1, 101) <= 10)
+            {
+                animator.IsMoving = false;
+                OnEncountered();
+            }
         }
-        return true;
-    }
-
+    }*/
 }
+
+
+
+
+   

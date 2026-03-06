@@ -1,26 +1,42 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+public enum GameState { FreeRoam, Battle }
 
 public class GameController : MonoBehaviour
 {
+    [SerializeField] MovementV2 movementV2;
+    [SerializeField] BattleSystem battleSystem;
+    [SerializeField] Camera worldCamera;
 
-    BattleSystem battleSystem;
-    MovementV2 movementV2;
+    GameState state;
 
+    private void Start()
+    {
+        //movementV2.OnEncountered += StartBattle;
+        {
+            state = GameState.Battle;
+        };
+    }  
     void StartBattle()
     {
-        /*
-       state = GameState.Battle;
+        state = GameState.Battle;
         battleSystem.gameObject.SetActive(true);
         worldCamera.gameObject.SetActive(false);
-
-        var playerParty = movementV2.gameObject.GetComponent<MonsterParty>();
-        var wildMonster = FindObjectOfType<MapArea>().GetComponent<MapArea>().GetRandomWildMonster();
-
-        var wildMonsterCopy = new Monster(wildMonster.Base, wildMonster.Level);
-
-        battleSystem.StartBattle(playerParty, wildMonsterCopy);
-        */
-
     }
+
+    private void Update()
+    {
+        if (state == GameState.FreeRoam)
+        {
+        //    movementV2.HandleUpdate();
+        }
+        else if (state == GameState.Battle)
+        {
+            battleSystem.HandleUpdate();
+        }
+    }
+
 
 }
