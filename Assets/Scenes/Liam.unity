@@ -1880,7 +1880,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: ecfabea7495545844aa6fb713c8824ab, type: 3}
-    m_FontSize: 40
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
@@ -1891,7 +1891,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Work in proggres test dialog. This won't be in the game, I think.
+  m_Text: This is a work in progress and all you can do is to go in grass and fight
+    Monsters. There is type advantages aswell.
 --- !u!222 &1578885114
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1985,7 +1986,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.71875, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -2037,8 +2038,8 @@ SpriteRenderer:
   m_SortingLayerID: 1288339915
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.5104212, g: 1, b: 0.41194963, a: 1}
+  m_Sprite: {fileID: -236619611796383025, guid: 151865d788c3b544b99d8dce16d1e8e8, type: 3}
+  m_Color: {r: 1, g: 0.007739331, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2077,8 +2078,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialog:
     lines:
-    - Hello short traveller Jack
-    - 
+    - This is a work in progress and all you can do is to go in grass and fight Monsters
 --- !u!1 &1708188804
 GameObject:
   m_ObjectHideFlags: 0
@@ -2096,7 +2096,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1708188805
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5261,7 +5261,7 @@ SpriteRenderer:
   m_SortingLayerID: 1288339915
   m_SortingLayer: 3
   m_SortingOrder: 10
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: -7830519784129133643, guid: 46099d266ba0ffc43aee1f2b9da5b398, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5365,75 +5365,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f58273e3c9eba04ba9646870909fa4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkDownSprites: []
-  walkUpSprites: []
-  walkLeftSprites: []
-  walkRightSprites: []
---- !u!1001 &7173039515044856367
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 492046879045691208, guid: ff69795f474758845986714585a223e9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 492046879045691208, guid: ff69795f474758845986714585a223e9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 492046879045691208, guid: ff69795f474758845986714585a223e9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 492046879045691208, guid: ff69795f474758845986714585a223e9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 492046879045691208, guid: ff69795f474758845986714585a223e9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 492046879045691208, guid: ff69795f474758845986714585a223e9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 492046879045691208, guid: ff69795f474758845986714585a223e9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 492046879045691208, guid: ff69795f474758845986714585a223e9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 492046879045691208, guid: ff69795f474758845986714585a223e9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 492046879045691208, guid: ff69795f474758845986714585a223e9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4526859205461698822, guid: ff69795f474758845986714585a223e9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4526859205461698822, guid: ff69795f474758845986714585a223e9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4913486548766897324, guid: ff69795f474758845986714585a223e9, type: 3}
-      propertyPath: m_Name
-      value: Portal
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ff69795f474758845986714585a223e9, type: 3}
+  walkDownSprites:
+  - {fileID: -7830519784129133643, guid: 46099d266ba0ffc43aee1f2b9da5b398, type: 3}
+  - {fileID: -825316476747250453, guid: 46099d266ba0ffc43aee1f2b9da5b398, type: 3}
+  - {fileID: -2832604295657172077, guid: 46099d266ba0ffc43aee1f2b9da5b398, type: 3}
+  walkUpSprites:
+  - {fileID: 4313496421292383080, guid: bd54d2d0113454c4f95440e064ea6ee9, type: 3}
+  - {fileID: 6811905518336956287, guid: bd54d2d0113454c4f95440e064ea6ee9, type: 3}
+  - {fileID: -1958785072501873275, guid: bd54d2d0113454c4f95440e064ea6ee9, type: 3}
+  walkLeftSprites:
+  - {fileID: -8593334672865689216, guid: 1f53a8cc558b3b3408a6397dfc963305, type: 3}
+  - {fileID: -1573680563049211260, guid: 1f53a8cc558b3b3408a6397dfc963305, type: 3}
+  - {fileID: 3597019959064899125, guid: 1f53a8cc558b3b3408a6397dfc963305, type: 3}
+  walkRightSprites:
+  - {fileID: 4168597902136592725, guid: 1f53a8cc558b3b3408a6397dfc963305, type: 3}
+  - {fileID: -5329535890663605025, guid: 1f53a8cc558b3b3408a6397dfc963305, type: 3}
+  - {fileID: 4652304573630429664, guid: 1f53a8cc558b3b3408a6397dfc963305, type: 3}
 --- !u!114 &7378155270466384102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5582,6 +5529,5 @@ SceneRoots:
   - {fileID: 800113586}
   - {fileID: 619394802}
   - {fileID: 2071061761}
-  - {fileID: 7173039515044856367}
   - {fileID: 1684061892}
   - {fileID: 696790289}

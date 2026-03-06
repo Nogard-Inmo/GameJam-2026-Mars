@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 151865d788c3b544b99d8dce16d1e8e8
+guid: 46099d266ba0ffc43aee1f2b9da5b398
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -236619611796383025
-    second: scientist_0
+      213: -7830519784129133643
+    second: sprite fram_0
+  - first:
+      213: -825316476747250453
+    second: sprite fram_1
+  - first:
+      213: -2832604295657172077
+    second: sprite fram_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +81,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: scientist_0
+      name: sprite fram_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 0
-        width: 23
-        height: 32
+        x: 16
+        y: 142
+        width: 25
+        height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +134,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fca5cfb77bb57bcf0800000000000000
-      internalID: -236619611796383025
+      spriteID: 5b380548eb7645390800000000000000
+      internalID: -7830519784129133643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite fram_1
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 142
+        width: 25
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be404308903eb84f0800000000000000
+      internalID: -825316476747250453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite fram_2
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 142
+        width: 25
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 393db10a66190b8d0800000000000000
+      internalID: -2832604295657172077
       vertices: []
       indices: 
       edges: []
@@ -148,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      scientist_0: -236619611796383025
+      sprite fram_0: -7830519784129133643
+      sprite fram_1: -825316476747250453
+      sprite fram_2: -2832604295657172077
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
