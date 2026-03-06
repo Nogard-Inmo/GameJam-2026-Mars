@@ -79,7 +79,6 @@ public class BattleSystem : MonoBehaviour
     {
         state = BattleState.EnemyAbility;
         var ability = enemyUnit.monster.GetRandomAbility();
-
         yield return dialogBox.TypeDialog($"{enemyUnit.monster.Base.Name} used {ability.Base.Name}!");
 
         yield return new WaitForSeconds(1f);
