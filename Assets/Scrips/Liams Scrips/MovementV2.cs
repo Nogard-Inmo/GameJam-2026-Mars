@@ -18,9 +18,14 @@ public class MovementV2 : MonoBehaviour
         character = GetComponent<Character>();
     }
 
+    public void HandleUpdate()
+    {
+
+    }
+
 
     // Update is called once per frame
-    public void HandleUpdate()
+    void Update()
     {
         if (!isMoving)
         {
