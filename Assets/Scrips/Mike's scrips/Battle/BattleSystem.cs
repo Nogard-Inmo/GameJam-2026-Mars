@@ -5,7 +5,7 @@ using UnityEngine.Analytics;
 using System;
 
 public enum BattleState { Start, ActionSelection, AbillitySelection, RunningTurn, Busy, PartyScreen, BattleOver }
-public enum BattleAction { Ability, SwitchMonster, Run }
+public enum BattleAction { Ability, SwitchMonster, UseItem, Run }
 public class BattleSystem : MonoBehaviour
 {
     [SerializeField] BattleUnit playerUnit;
@@ -117,8 +117,6 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
             {
                 var selectedMonster = playerParty.GetHealthyMonster();
 
-                
-
                 state = BattleState.Busy;
                 yield return SwitchMonster(selectedMonster);
             }
@@ -128,9 +126,14 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
             var enemyAbility = enemyUnit.monster.GetRandomAbility();
 
             yield return RunAbility(enemyUnit, playerUnit, enemyAbility);
-            //yield return RunAfterTurn(enemyUnit);
+            yield return RunAfterTurn(enemyUnit);
             if (state == BattleState.BattleOver) yield break;
 
+        }
+
+        if(state != BattleState.BattleOver)
+        {
+            ActionSelection();
         }
 
         IEnumerator RunAbility(BattleUnit sourceUnit, BattleUnit targetUnit, Ability ability)
@@ -161,8 +164,10 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
 
 
            //statuses like burn or poison will hurt the pokemon after the turn
+
            //sourceUnit.monster.OnAfterTurn();
-           // yield return ShowStatusChanges(sourceUnit.monster);
+           //yield return ShowStatusChanges(sourceUnit.monster);
+
             yield return sourceUnit.Hud.UpdateHP();
             if (sourceUnit.monster.Hp <= 0)
             {
@@ -218,7 +223,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         }
         else if (state == BattleState.PartyScreen)
         {
-           
+           HandlePartySelection();
         }
     }
 
@@ -233,7 +238,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         else if (Input.GetKeyDown(KeyCode.UpArrow))
             currentAction -=2 ;
         
-        currentAbility = Mathf.Clamp(currentAbility, 0, playerUnit.monster.Abilities.Count - 1);
+        currentAbility = Mathf.Clamp(currentAction, 0, playerUnit.monster.Abilities.Count - 1);
 
         dialogBox.UpdateActionSelection(currentAction);
 
@@ -261,20 +266,6 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
             }
         }
     }
-    void HandleAbilitySelector()
-    {   
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (currentAction < playerUnit.monster.Abilities.Count - 1)
-                ++currentAction;
-
-        }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if (currentAction > 0)
-                --currentAction;
-        }
-    }
 
     void HandleAbilitySelection()
     {
@@ -287,7 +278,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         else if (Input.GetKeyDown(KeyCode.UpArrow))
             currentAbility -= 2;
 
-        currentAction = Mathf.Clamp(currentAbility, 0, 3);
+        currentAbility = Mathf.Clamp(currentAbility, 0, playerUnit.monster.Abilities.Count -1);
 
         dialogBox.UpdateAbilitySelection(currentAbility, playerUnit.monster.Abilities[currentAbility]);
 
@@ -325,7 +316,11 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
             var selectedMember = playerParty.Monsters[currentMember];
             if (selectedMember.Hp <= 0)
             {
+<<<<<<< Updated upstream
                 partyScreen.SetMessageText("You can't send out a defeated monster");
+=======
+                partyScreen.SetMessageText("You can't send out a fainted monster");
+>>>>>>> Stashed changes
                 return;
             }
             if (selectedMember == playerUnit.monster)
@@ -334,7 +329,11 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
                 return;
             }
 
+<<<<<<< Updated upstream
                 partyScreen.gameObject.SetActive(false);
+=======
+           partyScreen.gameObject.SetActive(false);
+>>>>>>> Stashed changes
 
             if (prevState == BattleState.ActionSelection)
             {
