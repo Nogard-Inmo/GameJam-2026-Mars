@@ -30,18 +30,5 @@ public class BattleUnit : MonoBehaviour
             image.sprite = monster.Base.frontSprite;    
         
     }
-
-    public void PlayEnterAnimation()
-    {
-        if (isPlayerUnit)
-        {
-            image.transform.localPosition = new Vector3(-500f, originalPos.y);
-        }
-        else
-        {
-            image.transform.localPosition = new Vector3(500f, originalPos.y);
-        }
-     
-    }
 }
 

@@ -9,7 +9,7 @@ public class Monster
 {
     [SerializeField] MonsterBaseScript _base;
     [SerializeField] int level;
-<<<<<<< HEAD
+
 
     public Monster(MonsterBaseScript @base, int level)
     {
@@ -17,8 +17,6 @@ public class Monster
         this.level = level;
     }
 
-=======
->>>>>>> parent of 7ed8d7f (refactoring battle system Architecture)
     public MonsterBaseScript Base {
         get
         {

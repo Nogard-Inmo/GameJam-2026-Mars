@@ -4,13 +4,10 @@ using System.Collections.Generic;
 using UnityEngine.Analytics;
 using System;
 
-<<<<<<< HEAD
-public enum BattleState { Start, ActionSelection, AbillitySelection, RunningTurn, Busy, PartyScreen, BattleOver }
-public enum BattleAction { Ability, SwitchMonster, UseItem, Run }
-=======
+
 public enum BattleState { Start, ActionSelection, AbillitySelection, PerformAbility, Busy, PartyScreen, BattleOver }
 
->>>>>>> parent of 7ed8d7f (refactoring battle system Architecture)
+
 public class BattleSystem : MonoBehaviour
 {
     [SerializeField] BattleUnit playerUnit;
@@ -75,11 +72,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         state = BattleState.PartyScreen;
         partyScreen.SetPartyData(playerParty.Monsters);
         partyScreen.gameObject.SetActive(true);
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> parent of 7ed8d7f (refactoring battle system Architecture)
     }
 
     void AbillitySelection()
@@ -90,7 +83,6 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         dialogBox.EnableAbilitySelector(true);
     }
 
-<<<<<<< HEAD
     IEnumerator RunTurns(BattleAction playerAction)
     {
         state = BattleState.RunningTurn;
@@ -113,8 +105,11 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
             yield return RunAfterTurn(firstUnit);
             if (state == BattleState.BattleOver) yield break;
 
-            if (secondMonster.Hp > 0)
-=======
+            if (secondMonster.Hp > 0){
+
+            }
+        }
+    }
     IEnumerator PlayerAbility()
     {
         state = BattleState.PerformAbility;  
@@ -168,7 +163,6 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         {
             var nextMonster = playerParty.GetHealthyMonster();
             if (nextMonster != null)
->>>>>>> parent of 7ed8d7f (refactoring battle system Architecture)
             {
                 //Second turn
                 yield return RunAbility(secondUnit, firstUnit, secondUnit.monster.CurrentAbility);
@@ -363,7 +357,6 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
             ActionSelection();
         }
     }
-<<<<<<< HEAD
 
     void HandlePartySelection()
     {
@@ -385,13 +378,10 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
             var selectedMember = playerParty.Monsters[currentMember];
             if (selectedMember.Hp <= 0)
             {
-<<<<<<< HEAD
 
                 partyScreen.SetMessageText("You can't send out a defeated monster");
                 partyScreen.SetMessageText("You can't send out a fainted monster");
-=======
-                //partyScreen.SetMessageText("You can't send out a fainted monster");
->>>>>>> parent of d5f6d64 (party done)
+
                 return;
             }
             if (selectedMember == playerUnit.monster)
@@ -436,6 +426,4 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         
         state = BattleState.RunningTurn;
     }
-=======
->>>>>>> parent of 7ed8d7f (refactoring battle system Architecture)
 }
