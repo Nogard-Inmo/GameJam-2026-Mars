@@ -5,8 +5,7 @@ using System.Collections.Generic;
 
 public class EncounterThingy : MonoBehaviour, IPlayerTriggerable
 {
-
-    
+    GameController controller;
 
     Character character;
     public void OnPLayerTriggered(MovementV2 player)
@@ -15,7 +14,7 @@ public class EncounterThingy : MonoBehaviour, IPlayerTriggerable
         {
 
             character.Animator.IsMoving = false;
-            //GameController.Instance.StartBattle();
+            controller.StartBattle();
 
         }
     }

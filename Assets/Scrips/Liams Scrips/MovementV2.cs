@@ -35,7 +35,7 @@ public class MovementV2 : MonoBehaviour
 
             if (input != Vector2.zero)
             {
-                StartCoroutine(character.Move(input, CheckForEncounters));
+                StartCoroutine(character.Move(input, OnMoveOver));
             }
 
             character.HandleUpdate();
@@ -45,6 +45,22 @@ public class MovementV2 : MonoBehaviour
                 Interact();
             }
         }
+    }
+    private void OnMoveOver()
+    {
+
+        var colliders = Physics2D.OverlapCircleAll(transform.position, 0.2f, GameLayers.i.TriggerableLayers);
+        foreach (var collider in colliders) 
+        {
+           var triggerable = collider.GetComponent<IPlayerTriggerable>();
+            if (triggerable != null)
+            {
+                OnEncountered();
+                break;
+            }
+        }
+
+
     }
 
     void Interact()
@@ -61,11 +77,22 @@ public class MovementV2 : MonoBehaviour
 
     private void CheckForEncounters()
     {
-        if (Physics2D.OverlapCircle(transform.position, 0.2f, grassLayer) != null)
-        if (UnityEngine.Random.Range(1, 101) <= 10)
+        if (Physics2D.OverlapCircle(transform.position, 0.2f, GameLayers.i.GrassLayer) != null)
         {
-            character.Animator.IsMoving = false;
-            OnEncountered();
+            if (UnityEngine.Random.Range(1, 101) <= 10)
+            {
+                character.Animator.IsMoving = false;
+                OnEncountered();
+            }
         }
+    }
+
+    private void CheckIfInTrainersView()
+    {
+        if (Physics2D.OverlapCircle(transform.position, 0.2f, GameLayers.i.FovLayer ) != null)
+        {
+
+        }
+
     }
 }

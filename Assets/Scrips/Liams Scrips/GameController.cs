@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
 
        movementV2.OnEncountered += StartBattle;
 
-      battleSystem.OnBattleOver += EndBattle;
+       battleSystem.OnBattleOver += EndBattle;
 
         DialogManager.Instance.OnShowDialog += () => {
             state = GameState.Dialog;
@@ -62,7 +62,7 @@ public class GameController : MonoBehaviour
         var playerParty = movementV2.gameObject.GetComponent<MonsterParty>();
         var wildMonster = FindObjectOfType<MapArea>().GetComponent<MapArea>().GetRandomWildMonster();
 
-       // var wildMonsterCopy = new Monster(wildMonster.Base, wildMonster.Level);
+        //var wildMonsterCopy = new Monster(wildMonster.Base, wildMonster.Level);
 
         battleSystem.StartBattle(playerParty, wildMonster);
         
