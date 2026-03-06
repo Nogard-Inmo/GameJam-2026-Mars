@@ -120,6 +120,7 @@ NavMeshSettings:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!1001 &8257155
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -393,6 +394,8 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 --- !u!1 &101463766
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,6 +617,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5903773859211794483, guid: 8fe7992c207495f41ba0e538ed806e05, type: 3}
   m_PrefabInstance: {fileID: 1983523304900615704}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   m_GameObject: {fileID: 446754077}
   m_Enabled: 1
@@ -1201,6 +1205,9 @@ MonoBehaviour:
 =======
   m_GameObject: {fileID: 0}
 >>>>>>> Stashed changes
+=======
+  m_GameObject: {fileID: 0}
+>>>>>>> Stashed changes
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
@@ -1211,6 +1218,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6156385941585306564, guid: 8fe7992c207495f41ba0e538ed806e05, type: 3}
   m_PrefabInstance: {fileID: 1983523304900615704}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   m_GameObject: {fileID: 774397414}
   m_Enabled: 1
@@ -2012,6 +2020,9 @@ MonoBehaviour:
 =======
   m_GameObject: {fileID: 0}
 >>>>>>> Stashed changes
+=======
+  m_GameObject: {fileID: 0}
+>>>>>>> Stashed changes
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0072336e3d4cfa9459ddee9eca7cb6d8, type: 3}
@@ -2394,6 +2405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aa9f5ab6c155fa4891679e754181905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   playerUnit: {fileID: 480197051}
   enemyUnit: {fileID: 95700289}
@@ -3996,6 +4008,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3230087980712707685}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 --- !u!1660057539 &9223372036854775807
