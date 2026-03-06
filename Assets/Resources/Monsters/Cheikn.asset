@@ -16,7 +16,7 @@ MonoBehaviour:
   description: 
   frontSprite: {fileID: -8745823550758851493, guid: 98ea3a2773e6dc9478b46e3cea10a999, type: 3}
   backSprite: {fileID: 5721342885922900818, guid: 27240351175128f4fa2aa995fcd4fe20, type: 3}
-  type1: 3
+  type1: 4
   maxHp: 100
   attack: 20
   defense: 10
@@ -32,3 +32,5 @@ MonoBehaviour:
     level: 2
   - abilityBase: {fileID: 11400000, guid: bf5db2fc2e9a79f46bf2f46e5af426e9, type: 2}
     level: 2
+  - abilityBase: {fileID: 11400000, guid: 1ee9434f094bab9479d8d5b9466d333b, type: 2}
+    level: 1
