@@ -316,18 +316,22 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
             var selectedMember = playerParty.Monsters[currentMember];
             if (selectedMember.Hp <= 0)
             {
+<<<<<<< HEAD
 
                 partyScreen.SetMessageText("You can't send out a defeated monster");
                 partyScreen.SetMessageText("You can't send out a fainted monster");
+=======
+                //partyScreen.SetMessageText("You can't send out a fainted monster");
+>>>>>>> parent of d5f6d64 (party done)
                 return;
             }
             if (selectedMember == playerUnit.monster)
             {
-                partyScreen.SetMessageText("You can't switch with the same monster");
+                //partyScreen.SetMessageText("You can't switch with the same monster");
                 return;
             }
 
-                partyScreen.gameObject.SetActive(false);
+           // partyScreen.gameObject.SetActive(false);
 
            partyScreen.gameObject.SetActive(false);
 
@@ -344,7 +348,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
-            partyScreen.gameObject.SetActive(false);
+            //partyScreen.gameObject.SetActive(false);
             ActionSelection();
         }
     }

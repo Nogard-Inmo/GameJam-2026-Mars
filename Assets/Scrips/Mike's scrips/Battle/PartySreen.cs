@@ -40,9 +40,4 @@ public class PartyScreen: MonoBehaviour
                 memberSlots[i].SetSelected(false);
         }
     }
-
-    public void SetMessageText(string message)
-    {
-        messageText.text = message;
-    }
 }
