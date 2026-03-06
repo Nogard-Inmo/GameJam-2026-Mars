@@ -2,22 +2,27 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.SceneManagement;
 
 
 public class MovementV2 : MonoBehaviour
 {
     public float moveSpeed;
+    public LayerMask solidObjectsLayer;
+    public LayerMask grassLayer;
 
     private bool isMoving;
     private Vector2 input;
 
     private CharacterAnimator animator;
+
+    
     private void Start()
     {
         animator = GetComponent<CharacterAnimator>();
     }
 
-    private void Update()
+    public void Update()
     {
         if (!isMoving)
         {
@@ -42,6 +47,9 @@ public class MovementV2 : MonoBehaviour
         }
 
         animator.IsMoving = isMoving;
+
+        if (Input.GetKeyDown(KeyCode.T))
+            SceneManager.LoadScene(2);
 
         /*if (Input.GetKeyDown(KeyCode.Z))
             Interact();*/
@@ -72,17 +80,18 @@ public class MovementV2 : MonoBehaviour
         isMoving = false;
     }
 
-    /*private void CheckForEncounters()
+    
+
+    private void CheckForEncounters()
     {
         if (Physics2D.OverlapCircle(transform.position, 0.2f, GameLayers.i.GrassLayer) != null)
         {
             if (UnityEngine.Random.Range(1, 101) <= 10)
             {
-                animator.IsMoving = false;
-                OnEncountered();
+               // OnEncountered();
             }
         }
-    }*/
+    }
 }
 
 
