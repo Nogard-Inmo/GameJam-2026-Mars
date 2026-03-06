@@ -316,6 +316,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
             var selectedMember = playerParty.Monsters[currentMember];
             if (selectedMember.Hp <= 0)
             {
+
                 partyScreen.SetMessageText("You can't send out a defeated monster");
                 partyScreen.SetMessageText("You can't send out a fainted monster");
                 return;
@@ -327,6 +328,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
             }
 
                 partyScreen.gameObject.SetActive(false);
+
            partyScreen.gameObject.SetActive(false);
 
             if (prevState == BattleState.ActionSelection)
