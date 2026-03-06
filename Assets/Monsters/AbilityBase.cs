@@ -43,4 +43,20 @@ public class AbilityBase : ScriptableObject
         get { return up; }
     }
 
-}
+
+    public bool IsSpecial 
+    {
+
+        get {
+            if (type == MonsterType.Fantasy || type == MonsterType.Ancient || type == MonsterType.Science || type == MonsterType.Cursed)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        }
+    }

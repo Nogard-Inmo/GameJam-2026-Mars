@@ -8,6 +8,7 @@ public class BattleHud : MonoBehaviour
     [SerializeField] Text nameText;
     [SerializeField] Text levelText;
     [SerializeField] HPBar hpBar;
+    [SerializeField] Animator animator;
 
     Monster _monster;
 
@@ -27,7 +28,7 @@ public class BattleHud : MonoBehaviour
 
         float target = (_monster.MaxHp > 0) ? Mathf.Clamp01((float)_monster.Hp / _monster.MaxHp) : 0f;
 
-        // If the target is effectively zero, set instantly and exit so callers aren't blocked.
+        // If the target is effectively zero, set instantly, play faint animation and exit so callers aren't blocked.
         if (target <= Mathf.Epsilon)
         {
             hpBar.SetHP(0f);
