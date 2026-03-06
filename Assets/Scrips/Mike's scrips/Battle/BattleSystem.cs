@@ -4,13 +4,19 @@ using System.Collections.Generic;
 using UnityEngine.Analytics;
 using System;
 
+<<<<<<< HEAD
 public enum BattleState { Start, ActionSelection, AbillitySelection, RunningTurn, Busy, PartyScreen, BattleOver }
 public enum BattleAction { Ability, SwitchMonster, UseItem, Run }
+=======
+public enum BattleState { Start, ActionSelection, AbillitySelection, PerformAbility, Busy, PartyScreen, BattleOver }
+
+>>>>>>> parent of 7ed8d7f (refactoring battle system Architecture)
 public class BattleSystem : MonoBehaviour
 {
     [SerializeField] BattleUnit playerUnit;
     [SerializeField] BattleUnit enemyUnit;
-
+    [SerializeField] BattleHud playerHud;
+    [SerializeField] BattleHud enemyHud;
     [SerializeField] BattleDialogBox dialogBox;
     [SerializeField] PartyScreen partyScreen;
 
@@ -37,6 +43,8 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
     {
         playerUnit.Setup(playerParty.GetHealthyMonster());
         enemyUnit.Setup(wildMonster);
+        playerHud.SetData(playerUnit.monster);
+        enemyHud.SetData(enemyUnit.monster);
 
         partyScreen.Init();
 
@@ -67,7 +75,11 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         state = BattleState.PartyScreen;
         partyScreen.SetPartyData(playerParty.Monsters);
         partyScreen.gameObject.SetActive(true);
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> parent of 7ed8d7f (refactoring battle system Architecture)
     }
 
     void AbillitySelection()
@@ -78,6 +90,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         dialogBox.EnableAbilitySelector(true);
     }
 
+<<<<<<< HEAD
     IEnumerator RunTurns(BattleAction playerAction)
     {
         state = BattleState.RunningTurn;
@@ -101,6 +114,61 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
             if (state == BattleState.BattleOver) yield break;
 
             if (secondMonster.Hp > 0)
+=======
+    IEnumerator PlayerAbility()
+    {
+        state = BattleState.PerformAbility;  
+        
+        var ability = playerUnit.monster.Abilities[currentAbility];
+
+        yield return RunAbility(playerUnit, enemyUnit, ability);
+        //If battle state was not changed by RunAbility, then go to the next step
+        if (state == BattleState.PerformAbility)
+            StartCoroutine(EnemyAbility());
+
+    }
+
+    IEnumerator EnemyAbility()
+    {
+        state = BattleState.PerformAbility;
+
+        var ability = enemyUnit.monster.GetRandomAbility();
+       
+        yield return RunAbility(enemyUnit, playerUnit, ability);
+
+        if (state == BattleState.PerformAbility)
+            ActionSelection();
+        
+    }
+
+    IEnumerator RunAbility(BattleUnit sourceUnit, BattleUnit targetUnit, Ability ability)
+    {
+        ability.up--;
+        yield return dialogBox.TypeDialog($"{sourceUnit.monster.Base.Name} used {ability.Base.Name}!");
+
+        yield return new WaitForSeconds(1f);
+
+        var damageDetails = targetUnit.monster.TakeDamage(ability, sourceUnit.monster);
+        yield return enemyHud.UpdateHP();
+        yield return ShowDamageDetails(damageDetails);
+
+        if (damageDetails.Fainted)
+        {
+            yield return dialogBox.TypeDialog($"{targetUnit.monster.Base.Name} got disintergrated!");
+
+
+            CheckForBattleOver(targetUnit);
+        }
+    }
+
+    void CheckForBattleOver(BattleUnit faintedUnit)
+    {
+        
+        if(faintedUnit.IsPlayerUnit)
+        {
+            var nextMonster = playerParty.GetHealthyMonster();
+            if (nextMonster != null)
+>>>>>>> parent of 7ed8d7f (refactoring battle system Architecture)
             {
                 //Second turn
                 yield return RunAbility(secondUnit, firstUnit, secondUnit.monster.CurrentAbility);
@@ -295,6 +363,7 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
             ActionSelection();
         }
     }
+<<<<<<< HEAD
 
     void HandlePartySelection()
     {
@@ -367,4 +436,6 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
         
         state = BattleState.RunningTurn;
     }
+=======
+>>>>>>> parent of 7ed8d7f (refactoring battle system Architecture)
 }

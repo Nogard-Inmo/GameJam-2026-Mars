@@ -2,11 +2,14 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+
+
 [System.Serializable]    
 public class Monster
 {
     [SerializeField] MonsterBaseScript _base;
     [SerializeField] int level;
+<<<<<<< HEAD
 
     public Monster(MonsterBaseScript @base, int level)
     {
@@ -14,6 +17,8 @@ public class Monster
         this.level = level;
     }
 
+=======
+>>>>>>> parent of 7ed8d7f (refactoring battle system Architecture)
     public MonsterBaseScript Base {
         get
         {
@@ -29,7 +34,6 @@ public class Monster
 
     public int Hp { get; set; }
     public List<Ability> Abilities { get; set; }
-    public Ability CurrentAbility { get; set; }
 
     public void Init()
     {
