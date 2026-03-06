@@ -778,7 +778,10 @@ MonoBehaviour:
 
     Interact-Z
 
-'
+
+    This
+    is a heavyly WIP project and there were to many bugs in the end for us to put
+    in everything whe had avalible. '
 --- !u!222 &1252175948
 CanvasRenderer:
   m_ObjectHideFlags: 0
