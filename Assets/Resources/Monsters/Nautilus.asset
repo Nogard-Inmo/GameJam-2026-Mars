@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8510819aa6e79244827159f3ee1ee62, type: 3}
   m_Name: Nautilus
   m_EditorClassIdentifier: 
-  name: Nautilus
+  name: Tubetsu
   description: 
-  frontSprite: {fileID: 828265434898343749, guid: adc8e683f49047442a2f3427a6457a2e, type: 3}
-  backSprite: {fileID: 7482667652216324306, guid: 0322d5d93b730d044a97970da1986e1a, type: 3}
+  frontSprite: {fileID: -6159317351501391959, guid: c6300cf1998b08b4080868c4ef4bd43c, type: 3}
+  backSprite: {fileID: -6159317351501391959, guid: c6300cf1998b08b4080868c4ef4bd43c, type: 3}
   type1: 0
-  maxHp: 110
+  maxHp: 300
   attack: 80
   defense: 40
   spAttack: 10

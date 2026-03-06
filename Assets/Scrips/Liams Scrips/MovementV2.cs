@@ -22,7 +22,7 @@ public class MovementV2 : MonoBehaviour
         animator = GetComponent<CharacterAnimator>();
     }
 
-    public void Update()
+    public void HandleUpdate()
     {
         if (!isMoving)
         {

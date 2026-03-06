@@ -15,6 +15,6 @@ MonoBehaviour:
   name: Ichor bullet
   description: 
   type: 1
-  power: 60
+  power: 20
   accuracy: 100
   up: 15

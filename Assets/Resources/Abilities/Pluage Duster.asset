@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4fb9a8f9317093647ba473cc451e2954, type: 3}
-  m_Name: Taco Bell
+  m_Name: Pluage Duster
   m_EditorClassIdentifier: 
-  name: Taco Bell
-  description: nuclear shit
-  type: 2
-  power: 9999
-  accuracy: 1
-  up: 1
+  name: Pluage Duster
+  description: 
+  type: 3
+  power: 70
+  accuracy: 90
+  up: 15

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Nauti
   description: 
-  frontSprite: {fileID: -6159317351501391959, guid: c6300cf1998b08b4080868c4ef4bd43c, type: 3}
-  backSprite: {fileID: -6159317351501391959, guid: c6300cf1998b08b4080868c4ef4bd43c, type: 3}
+  frontSprite: {fileID: 4245814718526414900, guid: eee13845bb2bc5047a871f0c86fea619, type: 3}
+  backSprite: {fileID: 4245814718526414900, guid: eee13845bb2bc5047a871f0c86fea619, type: 3}
   type1: 3
-  maxHp: 50
+  maxHp: 250
   attack: 40
   defense: 60
   spAttack: 10
@@ -28,7 +28,9 @@ MonoBehaviour:
   learnableAbilities:
   - abilityBase: {fileID: 11400000, guid: 5ed7465fe5e4ce34fbe94c09d94e0aa2, type: 2}
     level: 1
-  - abilityBase: {fileID: 11400000, guid: bf5db2fc2e9a79f46bf2f46e5af426e9, type: 2}
+  - abilityBase: {fileID: 11400000, guid: c955abc1424f5c84badabc4dd7e3496a, type: 2}
     level: 3
-  - abilityBase: {fileID: 11400000, guid: e62e095c1da21e24b84b56adcd81dca2, type: 2}
+  - abilityBase: {fileID: 11400000, guid: 04fd2cd2eee90904c88625ef1303c612, type: 2}
+    level: 3
+  - abilityBase: {fileID: 11400000, guid: 68c2854d156b7394aa81390ecf65d0d3, type: 2}
     level: 3

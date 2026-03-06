@@ -17,7 +17,7 @@ MonoBehaviour:
   frontSprite: {fileID: 828265434898343749, guid: adc8e683f49047442a2f3427a6457a2e, type: 3}
   backSprite: {fileID: 8581734491280242025, guid: 3bdf9e05dd1422f409f77c6666888e49, type: 3}
   type1: 1
-  maxHp: 45
+  maxHp: 250
   attack: 73
   defense: 100
   spAttack: 74
@@ -27,4 +27,6 @@ MonoBehaviour:
   catchRate: 255
   learnableAbilities:
   - abilityBase: {fileID: 11400000, guid: 5ed7465fe5e4ce34fbe94c09d94e0aa2, type: 2}
+    level: 1
+  - abilityBase: {fileID: 11400000, guid: c955abc1424f5c84badabc4dd7e3496a, type: 2}
     level: 1

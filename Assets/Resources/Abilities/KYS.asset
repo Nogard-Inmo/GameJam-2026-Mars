@@ -16,6 +16,6 @@ MonoBehaviour:
   description: YOUR LIFE IS NOTHING, YOU SERVER ZERO PURPOSE, YOU SHOULD KILL YOURSELF
     NOW.
   type: 4
-  power: 2147483647
-  accuracy: 100
+  power: 150
+  accuracy: 10
   up: 1

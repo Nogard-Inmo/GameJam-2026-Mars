@@ -14,8 +14,9 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        battleSystem.gameObject.SetActive(false);
+        //battleSystem.gameObject.SetActive(false);
     }
+
 
     private void Start()
     {

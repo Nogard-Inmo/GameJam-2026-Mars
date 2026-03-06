@@ -507,7 +507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _base: {fileID: 11400000, guid: ecbcd613b2afb6e4b9b7add5dfd5e114, type: 2}
-  level: 75
+  level: 9
   isPlayerUnit: 0
 --- !u!1 &373008080
 GameObject:
@@ -57272,7 +57272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _base: {fileID: 11400000, guid: f2a4d35662de78f46b1e4bc957c3ca87, type: 2}
-  level: 80
+  level: 8
   isPlayerUnit: 1
 --- !u!1 &1494419387
 GameObject:
@@ -61168,7 +61168,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3911967424576254551, guid: 79045babe46ad10408471fe0db5d6c29, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4279694959478366465, guid: 79045babe46ad10408471fe0db5d6c29, type: 3}
       propertyPath: m_LocalPosition.x
