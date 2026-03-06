@@ -52,7 +52,7 @@ public class MovementV2 : MonoBehaviour
         var colliders = Physics2D.OverlapCircleAll(transform.position, 0.2f, GameLayers.i.TriggerableLayers);
         foreach (var collider in colliders) 
         {
-           var triggerable = collider.GetComponent<EncounterThingy>();
+           var triggerable = collider.GetComponent<IPlayerTriggerable>();
             if (triggerable != null)
             {
                 OnEncountered();
