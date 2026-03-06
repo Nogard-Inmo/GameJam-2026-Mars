@@ -59,11 +59,10 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        var damageDetails = enemyUnit.monster.TakeDamage(ability, playerUnit.monster);
+        bool isFainted = enemyUnit.monster.TakeDamage(ability, playerUnit.monster);
         yield return enemyHud.UpdateHP();
-        yield return ShowDamageDetails(damageDetails);
 
-        if (damageDetails.Fainted)
+        if (isFainted)
         {
             yield return dialogBox.TypeDialog($"{enemyUnit.monster.Base.Name} is unable to fight");
         }
@@ -84,11 +83,10 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        var damageDetails = playerUnit.monster.TakeDamage(ability, playerUnit.monster);
+        bool isFainted = playerUnit.monster.TakeDamage(ability, playerUnit.monster);
         yield return playerHud.UpdateHP();
-        yield return ShowDamageDetails(damageDetails);
 
-        if (damageDetails.Fainted)
+        if (isFainted)
         {
             yield return dialogBox.TypeDialog($"{playerUnit.monster.Base.Name} is unable to fight");
         }
@@ -97,17 +95,6 @@ public class BattleSystem : MonoBehaviour
             PlayerAction();
         }
     }
-
-    IEnumerator ShowDamageDetails(DamageDetails damageDetails)
-    {
-        if (damageDetails.Critical > 1f)
-            yield return dialogBox.TypeDialog("A Brutal hit!");
-        if (damageDetails.Type > 1f)
-            yield return dialogBox.TypeDialog("It's super effective!");
-        else if (damageDetails.Type < 1f)
-            yield return dialogBox.TypeDialog("It's not very effective...");
-    }   
-
     private void Update()
     {
         if (state == BattleState.PlayerAction)
