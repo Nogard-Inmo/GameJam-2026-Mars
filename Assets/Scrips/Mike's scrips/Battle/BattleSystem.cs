@@ -316,11 +316,8 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
             var selectedMember = playerParty.Monsters[currentMember];
             if (selectedMember.Hp <= 0)
             {
-<<<<<<< Updated upstream
                 partyScreen.SetMessageText("You can't send out a defeated monster");
-=======
                 partyScreen.SetMessageText("You can't send out a fainted monster");
->>>>>>> Stashed changes
                 return;
             }
             if (selectedMember == playerUnit.monster)
@@ -329,11 +326,8 @@ public void StartBattle(MonsterParty playerParty, Monster wildMonster)
                 return;
             }
 
-<<<<<<< Updated upstream
                 partyScreen.gameObject.SetActive(false);
-=======
            partyScreen.gameObject.SetActive(false);
->>>>>>> Stashed changes
 
             if (prevState == BattleState.ActionSelection)
             {
