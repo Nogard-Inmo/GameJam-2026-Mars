@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
 
     public void CloseHowToPlayMenu()
     {
-
+        howToPlayMenu.SetActive(false);
     }
 }
 
