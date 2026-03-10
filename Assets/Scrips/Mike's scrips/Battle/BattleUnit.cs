@@ -5,14 +5,13 @@ using UnityEngine.UI;
 
 public class BattleUnit : MonoBehaviour
 {
-    [SerializeField] MonsterBaseScript _base;
-    [SerializeField] int level;
+
     [SerializeField] bool isPlayerUnit;
     public Monster monster { get; set; }    
 
-    public void Setup() 
+    public void Setup(Monster monster) 
     { 
-       monster = new Monster(_base, level);
+
         if (isPlayerUnit)
             GetComponent<Image>().sprite = monster.Base.BackSprite;
         else

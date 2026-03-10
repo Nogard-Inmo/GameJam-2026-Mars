@@ -334,6 +334,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b838e3c022808444987889fc96e3bd9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementV2: {fileID: 0}
+  battleSystem: {fileID: 0}
+  worldCamera: {fileID: 0}
 --- !u!114 &6506633405065041727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -844,7 +847,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef9194ca3800514c9eb57322e35e665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  moveSpeed: 0
+  solidObjectsLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  grassLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &2413855904965134543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1196,7 +1205,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3493304163351599717}
-  - component: {fileID: 5370959724841113806}
   m_Layer: 0
   m_Name: EssentialObjects
   m_TagString: Untagged
@@ -1223,15 +1231,3 @@ Transform:
   - {fileID: 5241944483630884078}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5370959724841113806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9006165203393743516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e2d3ea11f240234c951de89e2125980, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

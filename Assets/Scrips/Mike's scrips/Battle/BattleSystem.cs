@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Analytics;
+using System;
 
 public enum BattleState { Start, PlayerAction, PlayerAbility, EnemyAbility, Busy }
 
@@ -17,14 +18,16 @@ public class BattleSystem : MonoBehaviour
     int currentAction;
     int currentAbility;
 
-    private void Start()
+    public event Action<bool> OnBattleOver;
+
+    public void StartBattle()
     {
         StartCoroutine(SetupBattle());
     }
     public IEnumerator SetupBattle()
     {
-        playerUnit.Setup();
-        enemyUnit.Setup();
+        //playerUnit.Setup();
+        //enemyUnit.Setup();
         playerHud.SetData(playerUnit.monster);
         enemyHud.SetData(enemyUnit.monster);
 
@@ -54,7 +57,9 @@ public class BattleSystem : MonoBehaviour
     IEnumerator PerformPlayerAbility()
     {
         state = BattleState.Busy;       
+
         var ability = playerUnit.monster.Abilities[currentAbility];
+        ability.up--;
         yield return dialogBox.TypeDialog($"{playerUnit.monster.Base.Name} used {ability.Base.Name}!");
 
         yield return new WaitForSeconds(1f);
@@ -65,7 +70,10 @@ public class BattleSystem : MonoBehaviour
 
         if (damageDetails.Fainted)
         {
-            yield return dialogBox.TypeDialog($"{enemyUnit.monster.Base.Name} is unable to fight");
+            yield return dialogBox.TypeDialog($"{enemyUnit.monster.Base.Name} disintergrated and is unable to fight");
+            
+            yield return new WaitForSeconds(2f);
+            OnBattleOver(true);
         }
         else
         {
@@ -79,6 +87,7 @@ public class BattleSystem : MonoBehaviour
     {
         state = BattleState.EnemyAbility;
         var ability = enemyUnit.monster.GetRandomAbility();
+        ability.up--;
         yield return dialogBox.TypeDialog($"{enemyUnit.monster.Base.Name} used {ability.Base.Name}!");
 
         yield return new WaitForSeconds(1f);
@@ -90,6 +99,8 @@ public class BattleSystem : MonoBehaviour
         if (damageDetails.Fainted)
         {
             yield return dialogBox.TypeDialog($"{playerUnit.monster.Base.Name} is unable to fight");
+            yield return new WaitForSeconds(2f);
+            OnBattleOver(false);
         }
         else
         {

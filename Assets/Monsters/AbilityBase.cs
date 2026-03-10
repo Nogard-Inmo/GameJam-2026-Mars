@@ -48,7 +48,7 @@ public class AbilityBase : ScriptableObject
     {
 
         get {
-            if (type == MonsterType.Fantasy || type == MonsterType.Ancient || type == MonsterType.Science || type == MonsterType.Cursed)
+            if (type == MonsterType.Fantasy || type == MonsterType.Cursed)
             {
                 return true;
             }

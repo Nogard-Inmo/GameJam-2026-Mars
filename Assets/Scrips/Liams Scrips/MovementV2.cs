@@ -16,13 +16,18 @@ public class MovementV2 : MonoBehaviour
 
     private CharacterAnimator animator;
 
+    public event Action OnEncountered;
+
+    [SerializeField] Transform player;
+
     
     private void Start()
     {
         animator = GetComponent<CharacterAnimator>();
+        player.position = new Vector2(2,2);
     }
 
-    public void Update()
+    public void HandleUpdate()
     {
         if (!isMoving)
         {
@@ -42,14 +47,17 @@ public class MovementV2 : MonoBehaviour
                 targetPos.x += input.x;
                 targetPos.y += input.y;
 
-                StartCoroutine(Move(targetPos));
+                if(IsWalkable(targetPos)) 
+                    StartCoroutine(Move(targetPos));
+
+
             }
         }
 
         animator.IsMoving = isMoving;
 
-        if (Input.GetKeyDown(KeyCode.T))
-            SceneManager.LoadScene(2);
+        //if (Input.GetKeyDown(KeyCode.T))
+            
 
         /*if (Input.GetKeyDown(KeyCode.Z))
             Interact();*/
@@ -78,6 +86,8 @@ public class MovementV2 : MonoBehaviour
         transform.position = targetPos;
 
         isMoving = false;
+
+        CheckForEncounters();
     }
 
     
@@ -88,9 +98,20 @@ public class MovementV2 : MonoBehaviour
         {
             if (UnityEngine.Random.Range(1, 101) <= 10)
             {
-               // OnEncountered();
+                animator.IsMoving = false;
+                OnEncountered();
+                //SceneManager.LoadScene(2);
             }
         }
+    }
+
+    private bool IsWalkable(Vector3 targetPos)
+    {
+       if( Physics2D.OverlapCircle(targetPos, 0.3f, GameLayers.i.SolidLayer) != null)
+        {
+            return false;
+        }
+       return true;
     }
 }
 

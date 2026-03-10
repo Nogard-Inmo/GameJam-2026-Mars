@@ -14,16 +14,14 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        //battleSystem.gameObject.SetActive(false);
+        battleSystem.gameObject.SetActive(false);
     }
 
 
     private void Start()
     {
-        //movementV2.OnEncountered += StartBattle;
-        {
-            state = GameState.Battle;
-        };
+        movementV2.OnEncountered += StartBattle;
+        battleSystem.OnBattleOver += EndBattle;
     }  
 
 
@@ -32,13 +30,22 @@ public class GameController : MonoBehaviour
         state = GameState.Battle;
         battleSystem.gameObject.SetActive(true);
         worldCamera.gameObject.SetActive(false);
+
+        battleSystem.StartBattle();
+    }
+
+    void EndBattle(bool won)
+    {
+        state = GameState.FreeRoam;
+        worldCamera.gameObject.SetActive(true);
+        battleSystem.gameObject.SetActive(false);
     }
 
     private void Update()
     {
         if (state == GameState.FreeRoam)
         {
-            //movementV2.HandleUpdate();
+            movementV2.HandleUpdate();
         }
         else if (state == GameState.Battle)
         {
