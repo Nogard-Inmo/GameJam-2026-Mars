@@ -31,7 +31,10 @@ public class GameController : MonoBehaviour
         battleSystem.gameObject.SetActive(true);
         worldCamera.gameObject.SetActive(false);
 
-        battleSystem.StartBattle();
+        var playerParty = movementV2.GetComponent<MonsterParty>();
+        var wildMonster = FindObjectOfType<MapArea>().GetComponent<MapArea>().GetRandomWildMonster();
+
+        battleSystem.StartBattle(playerParty, wildMonster);
     }
 
     void EndBattle(bool won)

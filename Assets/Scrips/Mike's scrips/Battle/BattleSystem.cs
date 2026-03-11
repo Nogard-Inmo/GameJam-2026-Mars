@@ -14,26 +14,33 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] BattleHud enemyHud;
     [SerializeField] BattleDialogBox dialogBox;
 
+    public event Action<bool> OnBattleOver;
+
     BattleState state;
     int currentAction;
     int currentAbility;
 
-    public event Action<bool> OnBattleOver;
+    MonsterParty playerParty;
+    Monster wildMonster;
 
-    public void StartBattle()
+    public void StartBattle(MonsterParty playerParty, Monster wildMonster)
     {
+        this.playerParty = playerParty;
+        this.wildMonster = wildMonster;
+
         StartCoroutine(SetupBattle());
     }
     public IEnumerator SetupBattle()
     {
-        //playerUnit.Setup();
-        //enemyUnit.Setup();
-        playerHud.SetData(playerUnit.monster);
-        enemyHud.SetData(enemyUnit.monster);
 
-        dialogBox.SetAbilityNames(playerUnit.monster.Abilities);
+        playerUnit.Setup(playerParty.GetHealthyMonster());
+        enemyUnit.Setup(wildMonster);
+        playerHud.SetData(playerUnit.Monster);
+        enemyHud.SetData(enemyUnit.Monster);
 
-        yield return dialogBox.TypeDialog($"An endangered {enemyUnit.monster.Base.Name} has spawned.");
+        dialogBox.SetAbilityNames(playerUnit.Monster.Abilities);
+
+        yield return dialogBox.TypeDialog($"An endangered {enemyUnit.Monster.Base.Name} has spawned.");
         yield return new WaitForSeconds(1f);
 
         PlayerAction();
@@ -58,19 +65,21 @@ public class BattleSystem : MonoBehaviour
     {
         state = BattleState.Busy;       
 
-        var ability = playerUnit.monster.Abilities[currentAbility];
+        var ability = playerUnit.Monster.Abilities[currentAbility];
         ability.up--;
-        yield return dialogBox.TypeDialog($"{playerUnit.monster.Base.Name} used {ability.Base.Name}!");
+        yield return dialogBox.TypeDialog($"{playerUnit.Monster.Base.Name} used {ability.Base.Name}!");
 
         yield return new WaitForSeconds(1f);
 
-        var damageDetails = enemyUnit.monster.TakeDamage(ability, playerUnit.monster);
+        var damageDetails = enemyUnit.Monster.TakeDamage(ability, playerUnit.Monster);
         yield return enemyHud.UpdateHP();
+        Debug.Log(damageDetails.Fainted);
+        
         yield return ShowDamageDetails(damageDetails);
 
         if (damageDetails.Fainted)
         {
-            yield return dialogBox.TypeDialog($"{enemyUnit.monster.Base.Name} disintergrated and is unable to fight");
+            yield return dialogBox.TypeDialog($"{enemyUnit.Monster.Base.Name} disintergrated and is unable to fight");
             
             yield return new WaitForSeconds(2f);
             OnBattleOver(true);
@@ -86,19 +95,19 @@ public class BattleSystem : MonoBehaviour
     IEnumerator EnemyAbility()
     {
         state = BattleState.EnemyAbility;
-        var ability = enemyUnit.monster.GetRandomAbility();
+        var ability = enemyUnit.Monster.GetRandomAbility();
         ability.up--;
-        yield return dialogBox.TypeDialog($"{enemyUnit.monster.Base.Name} used {ability.Base.Name}!");
+        yield return dialogBox.TypeDialog($"{enemyUnit.Monster.Base.Name} used {ability.Base.Name}!");
 
         yield return new WaitForSeconds(1f);
 
-        var damageDetails = playerUnit.monster.TakeDamage(ability, playerUnit.monster);
+        var damageDetails = playerUnit.Monster.TakeDamage(ability, playerUnit.Monster);
         yield return playerHud.UpdateHP();
         yield return ShowDamageDetails(damageDetails);
 
         if (damageDetails.Fainted)
         {
-            yield return dialogBox.TypeDialog($"{playerUnit.monster.Base.Name} is unable to fight");
+            yield return dialogBox.TypeDialog($"{playerUnit.Monster.Base.Name} is unable to fight");
             yield return new WaitForSeconds(2f);
             OnBattleOver(false);
         }
@@ -165,7 +174,7 @@ public class BattleSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (currentAction < playerUnit.monster.Abilities.Count - 1)
+            if (currentAction < playerUnit.Monster.Abilities.Count - 1)
                 ++currentAction;
 
         }
@@ -180,7 +189,7 @@ public class BattleSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (currentAbility < playerUnit.monster.Abilities.Count - 1)
+            if (currentAbility < playerUnit.Monster.Abilities.Count - 1)
                 ++currentAbility;
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -190,7 +199,7 @@ public class BattleSystem : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (currentAbility < playerUnit.monster.Abilities.Count - 2)
+            if (currentAbility < playerUnit.Monster.Abilities.Count - 2)
                 currentAbility += 2;
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -199,7 +208,7 @@ public class BattleSystem : MonoBehaviour
                 currentAbility -= 2;
         }
 
-        dialogBox.UpdateAbilitySelection(currentAbility, playerUnit.monster.Abilities[currentAbility]);
+        dialogBox.UpdateAbilitySelection(currentAbility, playerUnit.Monster.Abilities[currentAbility]);
 
         if (Input.GetKeyDown(KeyCode.Z))
         {

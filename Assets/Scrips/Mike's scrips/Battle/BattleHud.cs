@@ -15,26 +15,16 @@ public class BattleHud : MonoBehaviour
     public void SetData(Monster monster)
     {
         _monster = monster;
-        nameText.text = monster.Base.name;
+        nameText.text = monster.Base.Name;
         levelText.text = "Lvl " + monster.Level;
-        float normalized = (monster.MaxHp > 0) ? Mathf.Clamp01((float)monster.Hp / monster.MaxHp) : 0f;
-        hpBar.SetHP(normalized);
+
+        hpBar.SetHP((float) monster.HP / monster.MaxHp);
+
+
     }
 
     public IEnumerator UpdateHP()
     {
-        if (_monster == null || hpBar == null)
-            yield break;
-
-        float target = (_monster.MaxHp > 0) ? Mathf.Clamp01((float)_monster.Hp / _monster.MaxHp) : 0f;
-
-        // If the target is effectively zero, set instantly, play faint animation and exit so callers aren't blocked.
-        if (target <= Mathf.Epsilon)
-        {
-            hpBar.SetHP(0f);
-            yield break;
-        }
-
-        yield return hpBar.SetHPSmooth(target);
+        yield return hpBar.SetHPSmooth((float)_monster.HP / _monster.MaxHp);
     }
 }

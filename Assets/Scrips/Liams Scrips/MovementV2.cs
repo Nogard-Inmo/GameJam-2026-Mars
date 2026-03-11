@@ -56,7 +56,10 @@ public class MovementV2 : MonoBehaviour
 
         animator.IsMoving = isMoving;
 
-        //if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
+        }
             
 
         /*if (Input.GetKeyDown(KeyCode.Z))

@@ -3,22 +3,22 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class Monster
 {
     [SerializeField] MonsterBaseScript _base;
     [SerializeField] int level;
 
-    public MonsterBaseScript Base { get; set; }
-    public int Level { get; set; }
+    public MonsterBaseScript Base { get { return _base; }}
 
-    public int Hp { get; set; }
+    public int Level { get { return level; }}
+
+    public int HP { get; set; } 
     public List<Ability> Abilities { get; set; }
 
-    public Monster(MonsterBaseScript pBase, int plevel)
+    public void Init()
     {
-        Base = pBase;
-        Level = plevel;
-        Hp = MaxHp;
+        HP = MaxHp;
 
         //Generate abilities
         Abilities = new List<Ability>();
@@ -91,10 +91,10 @@ public class Monster
         float d = a * ability.Base.Power * ((float)attack / defense) + 2;
         int damage = Mathf.FloorToInt(d * modifiers);
 
-        Hp -= damage;
-        if (Hp <= 0)
+        HP -= damage;
+        if (HP <= 0)
         {
-            Hp = 0;
+            HP = 0;
             damageDetails.Fainted = true;
         }
        
@@ -104,6 +104,7 @@ public class Monster
 
     public Ability GetRandomAbility()
     {         int r = Random.Range(0, Abilities.Count);
+        Debug.Log(r);
         return Abilities[r];
     }
 }
