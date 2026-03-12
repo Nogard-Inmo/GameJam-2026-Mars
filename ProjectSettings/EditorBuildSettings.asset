@@ -11,9 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/full map.unity
     guid: 00d38bb54bdb22248909ff6260837c47
-  - enabled: 1
-    path: Assets/Scenes/Mike2.unity
-    guid: 35a5f319334b2124289cf1b52998b5a3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
