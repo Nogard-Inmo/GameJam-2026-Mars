@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.Analytics;
 using System;
 
-public enum BattleState { Start, PlayerAction, PlayerAbility, EnemyAbility, Busy }
+public enum BattleState { Start, PlayerAction, PlayerAbility, EnemyAbility, Busy, PartyScreen }
 
 public class BattleSystem : MonoBehaviour
 {
@@ -13,12 +13,14 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] BattleHud playerHud;
     [SerializeField] BattleHud enemyHud;
     [SerializeField] BattleDialogBox dialogBox;
+    [SerializeField] PartyScreen partyScreen;
 
     public event Action<bool> OnBattleOver;
 
     BattleState state;
     int currentAction;
     int currentAbility;
+    int currentPartyMember;
 
     MonsterParty playerParty;
     Monster wildMonster;
@@ -38,6 +40,8 @@ public class BattleSystem : MonoBehaviour
         playerHud.SetData(playerUnit.Monster);
         enemyHud.SetData(enemyUnit.Monster);
 
+        partyScreen.Init();
+
         dialogBox.SetAbilityNames(playerUnit.Monster.Abilities);
 
         yield return dialogBox.TypeDialog($"An endangered {enemyUnit.Monster.Base.Name} has spawned.");
@@ -49,8 +53,15 @@ public class BattleSystem : MonoBehaviour
     void PlayerAction()
     {
         state = BattleState.PlayerAction;
-        StartCoroutine(dialogBox.TypeDialog("Choose an action"));
+        dialogBox.SetDialog("Choose an action");
         dialogBox.EnableActionSelector(true);
+    }
+
+    void OpenPartyScreen()
+    {
+        state = BattleState.PartyScreen;
+        partyScreen.SetPartyData(playerParty.Monsters);
+        partyScreen.gameObject.SetActive(true);
     }
 
     void PlayerAbility()
@@ -76,6 +87,8 @@ public class BattleSystem : MonoBehaviour
         Debug.Log(damageDetails.Fainted);
         
         yield return ShowDamageDetails(damageDetails);
+
+        yield return new WaitForSeconds(1f);
 
         if (damageDetails.Fainted)
         {
@@ -105,11 +118,20 @@ public class BattleSystem : MonoBehaviour
         yield return playerHud.UpdateHP();
         yield return ShowDamageDetails(damageDetails);
 
+        yield return new WaitForSeconds(1f);
+
         if (damageDetails.Fainted)
         {
-            yield return dialogBox.TypeDialog($"{playerUnit.Monster.Base.Name} is unable to fight");
+            yield return dialogBox.TypeDialog($"{playerUnit.Monster.Base.Name} got disintergrated and is unable to fight");
             yield return new WaitForSeconds(2f);
-            OnBattleOver(false);
+
+            var nextMonster = playerParty.GetHealthyMonster();
+            if (nextMonster != null)
+            {
+                OpenPartyScreen();
+            }
+            else
+                OnBattleOver(false);
         }
         else
         {
@@ -137,21 +159,25 @@ public class BattleSystem : MonoBehaviour
         {
             HandleAbilitySelection();
         }
+        else if (state == BattleState.PartyScreen)
+        {
+            HandlePartySelection();
+        }
     }
 
     void HandleActionSelector()
     {
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (currentAction < 1)
                 ++currentAction;
 
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (currentAction > 0)
                 --currentAction;
         }
+
+        currentAction = Mathf.Clamp(currentAction, 0,1);
 
         dialogBox.UpdateActionSelection(currentAction);
 
@@ -164,24 +190,10 @@ public class BattleSystem : MonoBehaviour
             }
             else if (currentAction == 1)
             {
-                // Run
-                dialogBox.EnableActionSelector(false);
+                // Open the PartyMenu
+                OpenPartyScreen();
 
             }
-        }
-    }
-    void HandleAbilitySelector()
-    {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (currentAction < playerUnit.Monster.Abilities.Count - 1)
-                ++currentAction;
-
-        }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if (currentAction > 0)
-                --currentAction;
         }
     }
 
@@ -189,24 +201,22 @@ public class BattleSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (currentAbility < playerUnit.Monster.Abilities.Count - 1)
                 ++currentAbility;
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (currentAbility > 0)
-                --currentAbility;
+            --currentAbility;
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (currentAbility < playerUnit.Monster.Abilities.Count - 2)
-                currentAbility += 2;
+            currentAbility += 2;
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (currentAbility > 1)
-                currentAbility -= 2;
+            currentAbility -= 2;
         }
+
+        currentAbility = Mathf.Clamp(currentAbility, 0,playerUnit.Monster.Abilities.Count -1);
 
         dialogBox.UpdateAbilitySelection(currentAbility, playerUnit.Monster.Abilities[currentAbility]);
 
@@ -216,5 +226,75 @@ public class BattleSystem : MonoBehaviour
             dialogBox.EnableDialogText(true);
             StartCoroutine(PerformPlayerAbility());
         }
+        else if (Input.GetKeyDown(KeyCode.X))
+        {
+            dialogBox.EnableAbilitySelector(false);
+            dialogBox.EnableDialogText(true);
+            PlayerAction();
+        }
     }
+
+    void HandlePartySelection()
+    {
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            ++currentPartyMember;
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            --currentPartyMember;
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            currentPartyMember += 2;
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            currentPartyMember -= 2;
+        }
+
+        currentPartyMember = Mathf.Clamp(currentPartyMember, 0, playerParty.Monsters.Count - 1);
+
+        partyScreen.UpdateMemberSelection(currentPartyMember);
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            var selectedMember = playerParty.Monsters[currentPartyMember];
+            if (selectedMember.HP <= 0)
+            {
+                partyScreen.SetMessageText("You can't ducking send out a disintergrated monster!!");
+                return;
+            }
+            if (selectedMember == playerUnit.Monster)
+            {
+                partyScreen.SetMessageText("You can't send out a monster that is already on the battlefield!");
+                return;
+            }
+
+            partyScreen.gameObject.SetActive(false);
+            state = BattleState.Busy;
+            StartCoroutine(SwitchMonster(selectedMember));
+        }
+        else if (Input.GetKeyDown(KeyCode.X))
+        {
+            partyScreen.gameObject.SetActive(false);
+            PlayerAction();
+        }
+    }
+
+    IEnumerator SwitchMonster(Monster newMonster)
+    {
+        if (playerUnit.Monster.HP > 0)
+        {
+            yield return dialogBox.TypeDialog($"Get back here {playerUnit.Monster.Base.Name}");
+            yield return new WaitForSeconds(0.75f);
+        }
+        playerUnit.Setup(newMonster);
+        playerHud.SetData(newMonster);
+        dialogBox.SetAbilityNames(newMonster.Abilities);
+        yield return dialogBox.TypeDialog($"Get out on the battlefield {newMonster.Base.Name}!");
+
+        StartCoroutine(EnemyAbility());
+    }
+  
 }

@@ -17,11 +17,11 @@ MonoBehaviour:
   frontSprite: {fileID: -6159317351501391959, guid: c6300cf1998b08b4080868c4ef4bd43c, type: 3}
   backSprite: {fileID: -6159317351501391959, guid: c6300cf1998b08b4080868c4ef4bd43c, type: 3}
   type1: 2
-  maxHp: 400
+  maxHp: 350
   attack: 60
   defense: 75
   spAttack: 45
-  spDefense: 75
+  spDefense: 65
   speed: 71
   xpYield: 0
   catchRate: 255
