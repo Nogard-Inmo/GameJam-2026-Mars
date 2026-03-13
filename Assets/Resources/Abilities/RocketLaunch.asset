@@ -27,6 +27,6 @@ MonoBehaviour:
 
 '
   type: 2
-  power: 100
+  power: 110
   accuracy: 100
   up: 2147483647
